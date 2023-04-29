@@ -27,10 +27,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
             backgroundColor: Colors.white,
             animationDuration: const Duration(milliseconds: 600),
             height: 60,
-            items: const [
+            items:  [
               Icon(Icons.home_filled,color: Colors.white),
               Icon(Icons.line_axis_rounded, color: Colors.white),
-              Icon(Icons.person_2_rounded, color: Colors.white),
+              Icon(Icons.person_rounded, color: Colors.white),
             ],
         onTap: (index){
             setState(() {

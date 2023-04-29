@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 30,
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               vertical: 15,
                             ),
                             child: Image(
@@ -329,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 45,
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 5,
                     ),
                     child: Text(
