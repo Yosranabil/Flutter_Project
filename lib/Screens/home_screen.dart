@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 65,
         leadingWidth: 65,
@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CircleAvatar(
                     radius: 20,
                     child: Image(
-                      image: AssetImage("Assets/Icons/user.png"),
+                      image: AssetImage("Assets/Icons/boy.png"),
                     ),
                   ),
                 ),
@@ -138,108 +138,112 @@ class _HomeScreenState extends State<HomeScreen> {
                 vertical: 40,
                 horizontal: 10,
               ),
-              child: Container(
-                width: double.infinity,
-                height: 250,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0XFF21D4FD),
-                      Color(0XFFB721FF),
-                    ],
-                    begin: Alignment.bottomRight,
-                    end: Alignment.topLeft ,
+              child: Material(
+                elevation: 5,
+                borderRadius: BorderRadiusDirectional.circular(30),
+                child: Container(
+                  width: double.infinity,
+                  height: 250,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0XFF21D4FD),
+                        Color(0XFFB721FF),
+                      ],
+                      begin: Alignment.bottomRight,
+                      end: Alignment.topLeft ,
+                    ),
                   ),
-                ),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Positioned(
-                      bottom: 128,
-                      left: 30,
-                      child: Column(
-                        children: const [
-                          Image(
-                              image: AssetImage("Assets/Icons/weather-app.png"),
-                            height: 155,
-                            width: 155,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      left: 210,
-                      child: Column(
-                        children: const [
-                          Text(
-                            "21\u00b0",
-                            style: TextStyle(
-                              fontSize: 98,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white54,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned(
+                        bottom: 128,
+                        left: 30,
+                        child: Column(
+                          children: const [
+                            Image(
+                                image: AssetImage("Assets/Icons/cloudy.png"),
+                              height: 170,
+                              width: 170,
                             ),
-                          ),
-                          Text(
-                            "Feels Like 25 \u00b0",
-                            style: TextStyle(
-                                fontSize: 21,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFFEEEEEE),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Positioned(
-                      top: 120,
-                      left: 20,
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              SizedBox(
-                                height: 10,
+                      Positioned(
+                        left: 210,
+                        child: Column(
+                          children: const [
+                            Text(
+                              "21\u00b0",
+                              style: TextStyle(
+                                fontSize: 98,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white54,
                               ),
-                              Text(
-                                "Rain  Showers",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 26,
+                            ),
+                            Text(
+                              "Feels Like 25 \u00b0",
+                              style: TextStyle(
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xFFEEEEEE),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        top: 120,
+                        left: 20,
+                        child: Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                SizedBox(
+                                  height: 10,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Monday, 12 Feb",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
+                                Text(
+                                  "Rain  Showers",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 26,
+                                  ),
                                 ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "Monday, 12 Feb",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.symmetric(
+                                vertical: 15,
                               ),
-                            ],
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 15,
+                              child: Image(
+                                  image: const AssetImage("Assets/Icons/wind.png",),
+                                  height: 110,
+                                  width: 110,
+                                  color: Colors.white.withOpacity(0.2),
+                              ),
                             ),
-                            child: Image(
-                                image: const AssetImage("Assets/Icons/wind.png",),
-                                height: 110,
-                                width: 110,
-                                color: Colors.white.withOpacity(0.2),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -285,63 +289,67 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(10.0),
         child: Row(
           children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                gradient: d.today? const LinearGradient(
-                  colors: [
-                    Color(0XFF21D4FD),
-                    Color(0XFFB721FF),
-                  ],
-                  begin: Alignment.bottomRight,
-                  end: Alignment.topLeft ,
-                ) : const LinearGradient(colors: [
-                  Color.fromRGBO(220, 220, 220, 0.5),
-                  Color.fromRGBO(220, 220, 220, 0.5),
-                ]),
-                borderRadius: BorderRadius.circular(40),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    d.day,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: d.today? Colors.white : Colors.black,
-                    ),
-                  ),
-                  Text(
-                    "${d.date} Feb",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: d.today? Colors.white : Colors.black54,
-                    ),
-                  ),
-                  const SizedBox(
-                      height: 20,
-                    ),
-                  Image(
-                    image: AssetImage(d.img),
-                    height: 45,
-                    width: 45,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 5,
-                    ),
-                    child: Text(
-                      "${d.degree}\u00b0",
+            Material(
+              elevation: 5,
+              borderRadius: BorderRadiusDirectional.circular(37),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  gradient: d.today? const LinearGradient(
+                    colors: [
+                      Color(0XFF21D4FD),
+                      Color(0XFFB721FF),
+                    ],
+                    begin: Alignment.bottomRight,
+                    end: Alignment.topLeft ,
+                  ) : const LinearGradient(colors: [
+                    Color.fromRGBO(220, 220, 220, 0.5),
+                    Color.fromRGBO(220, 220, 220, 0.5),
+                  ]),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      d.day,
                       style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
                         color: d.today? Colors.white : Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
                       ),
                     ),
-                  ),
-                ],
+                    Text(
+                      "${d.date} Feb",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: d.today? Colors.white : Colors.black54,
+                      ),
+                    ),
+                    const SizedBox(
+                        height: 20,
+                      ),
+                    Image(
+                      image: AssetImage(d.img),
+                      height: 45,
+                      width: 45,
+                    ),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.symmetric(
+                        horizontal: 5,
+                      ),
+                      child: Text(
+                        "${d.degree}\u00b0",
+                        style: TextStyle(
+                          color: d.today? Colors.white : Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
