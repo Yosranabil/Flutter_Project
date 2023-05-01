@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../shared/constants/Constants.dart';
+
 class FireBaseHelper{
   FirebaseAuth auth=FirebaseAuth.instance;
 
@@ -31,7 +33,14 @@ class FireBaseHelper{
       return e.message;
     }
   }
-  Future<void> signOut ()async{
-    await auth.signOut();
+  Future<dynamic> signOut ()async {
+    try {
+      await auth.signOut();
+      usernameController.clear();
+      emailController.clear();
+      passwordController.clear();
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
   }
 }

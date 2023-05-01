@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:practice/shared/Components/defaultButton.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../../shared/Components/BottomNavBar.dart';
+import '../authentication/signUp_screen.dart';
 
 class onboardingScreen extends StatefulWidget {
   const onboardingScreen({super.key});
@@ -39,67 +38,72 @@ class _onboardingScreenState extends State<onboardingScreen> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors:[Color(0xff283EE8),Color(0xffB721FF),],
+                        colors:[
+                          Color(0XFF0093E9),
+                          Color(0XFFB721FF),],
                       ),
                     ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Lottie.asset(
-                            'Assets/lotties/4800-weather-partly-cloudy.json',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xCC030911),
-                            borderRadius: BorderRadius.circular(30),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Lottie.asset(
+                              'Assets/lotties/4800-weather-partly-cloudy.json',
+                            fit: BoxFit.cover,
                           ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                children: [
-                                  const Text(
-                                    'Check real-time weather!',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 35.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      height: 1.2,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20.0,),
-                                  const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-                                      'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      height: 1.5,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 30.0,),
-                                  defaultButton(
-                                    width: 500.0,
-                                    height: 50.0,
-                                    onPressed:(){
-                                      _pageController.nextPage(
-                                        duration: const Duration(microseconds: 300),
-                                        curve: Curves.easeInToLinear,);
-                                    },
-                                    text: 'Next',
-                                    radius: 30,
-                                  ),
-                                ],
-                              ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                            decoration: BoxDecoration(
+                                color: const Color(0xCC030911),
+                              borderRadius: BorderRadius.circular(30),
                             ),
-                  ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                      'Check real-time weather!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 35.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20.0,),
+                                    const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                                        'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        height: 1.5,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 30.0,),
+                                    defaultButton(
+                                      width: 500.0,
+                                      height: 50.0,
+                                      onPressed:(){
+                                        _pageController.nextPage(
+                                          duration: const Duration(microseconds: 300),
+                                          curve: Curves.easeInToLinear,);
+                                      },
+                                      text: 'Next',
+                                      radius: 30,
+                                    ),
+                                  ],
+                                ),
+                              ),
                     ),
                       ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                   ),
                 Container(
@@ -111,65 +115,68 @@ class _onboardingScreenState extends State<onboardingScreen> {
 
                     ),
                   ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Lottie.asset(
-                          'Assets/lotties/4804-weather-sunny.json',
-                          fit: BoxFit.cover,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Lottie.asset(
+                            'Assets/lotties/4804-weather-sunny.json',
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 300.0,
-                            decoration: BoxDecoration(
-                              color: const Color(0xCC030911),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                children: [
-                                  const Text(
-                                    'Get potential weather!',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 35.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      height: 1.2,
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 300.0,
+                              decoration: BoxDecoration(
+                                color: const Color(0xCC030911),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                      'Get potential weather!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 35.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        height: 1.2,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 20.0,),
-                                  const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-                                      'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      height: 1.5,
+                                    const SizedBox(height: 20.0,),
+                                    const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                                        'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        height: 1.5,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 30.0,),
-                                  defaultButton(
-                                    width: 500.0,
-                                    height: 50.0,
-                                    onPressed:(){
-                                      _pageController.nextPage(
-                                        duration: const Duration(microseconds: 300),
-                                        curve: Curves.easeInToLinear,);
-                                      },
-                                    text: 'Next',
-                                    radius: 30,
-                                  ),
-                                ],
+                                    const SizedBox(height: 30.0,),
+                                    defaultButton(
+                                      width: 500.0,
+                                      height: 50.0,
+                                      onPressed:(){
+                                        _pageController.nextPage(
+                                          duration: const Duration(microseconds: 300),
+                                          curve: Curves.easeInToLinear,);
+                                        },
+                                      text: 'Next',
+                                      radius: 30,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Container(
@@ -180,66 +187,69 @@ class _onboardingScreenState extends State<onboardingScreen> {
                       colors:[Color(0xffFC00FF),Color(0xff00DBDE)],
                     ),
                   ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Lottie.asset(
-                          'Assets/lotties/4792-weather-stormshowersday.json',
-                          fit: BoxFit.cover,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Lottie.asset(
+                            'Assets/lotties/4792-weather-stormshowersday.json',
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 300.0,
-                            decoration: BoxDecoration(
-                              color: const Color(0xCC030911),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                children: [
-                                  const Text(
-                                    'Get the weather and stay safe!',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 35.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      height: 1.2,
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 300.0,
+                              decoration: BoxDecoration(
+                                color: const Color(0xCC030911),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                      'Get the weather and stay safe!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 35.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        height: 1.2,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 20.0,),
-                                  const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-                                      'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      height: 1.5,
+                                    const SizedBox(height: 20.0,),
+                                    const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                                        'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        height: 1.5,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 30.0,),
-                                  defaultButton(
-                                    width: 500.0,
-                                    height: 50.0,
-                                    onPressed:(){
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(builder: (context)=>BottomNavBar()),
-                                      );
-                                    },
-                                    text: 'Get started',
-                                    radius: 30,
-                                  ),
-                                ],
+                                    const SizedBox(height: 30.0,),
+                                    defaultButton(
+                                      width: 500.0,
+                                      height: 50.0,
+                                      onPressed:(){
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(builder: (context)=>const SignUpScreen()),
+                                        );
+                                      },
+                                      text: 'Get started',
+                                      radius: 30,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ]

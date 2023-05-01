@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:practice/Screens/authentication/signUp_screen.dart';
+import '../Core/DataProvider/Remote/firebaseHelper.dart';
 import '../Shared/Components/BottomNavBar.dart';
 import '../Shared/Components/BuildProfileMenu.dart';
 
@@ -257,7 +260,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ProfileItem(
             icon: Icons.logout_rounded,
             text: "Log out",
-            press: () {},
+            press: () async{
+              await FireBaseHelper().signOut();
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen(),));
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
