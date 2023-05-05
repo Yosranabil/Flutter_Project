@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:practice/Screens/authentication/signIn_screen.dart';
-import 'package:practice/Screens/home_screen.dart';
+import '../../shared/Components/buttonWidget.dart';
 import 'package:practice/Shared/Components/BottomNavBar.dart';
 import '../../Core/DataProvider/Remote/firebaseHelper.dart';
-import '../../shared/Components/buttonWidget.dart';
 import '../../shared/Components/passtextformfeildWidget.dart';
 import '../../shared/Components/textformfieldWidget.dart';
-import '../../shared/constants/Constants.dart';
+import '../../shared/constants/Variables/Constants.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -124,7 +123,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 const Spacer(),
                                 ButtonWidget(
+                                  width: 65,
+                                  height: 45,
+                                  radius: 15,
                                   onClick: signUpParameter,
+                                  child: const Icon(
+                                    Icons.arrow_right_alt_rounded,
+                                    color: Colors.white,
+                                    size: 45,
+                                    weight: 4,
+                                  ),
                                 ),
                               ],
                             ),

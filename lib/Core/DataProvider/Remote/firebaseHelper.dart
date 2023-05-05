@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../shared/constants/Constants.dart';
+import '../../../shared/constants/Variables/Constants.dart';
 
 class FireBaseHelper{
   FirebaseAuth auth=FirebaseAuth.instance;

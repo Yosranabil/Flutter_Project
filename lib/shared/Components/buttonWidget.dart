@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  ButtonWidget({super.key, required this.onClick});
+  ButtonWidget({super.key, required this.onClick, required this.width, required this.radius, required this.child, required this.height});
 
   VoidCallback onClick;
+  double width, radius, height;
+  Widget child;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onClick,
       child: Container(
-        width: 65,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          gradient: LinearGradient(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(radius)),//15
+          gradient: const LinearGradient(
             colors: [
               Color(0XFF0093E9),
               Color(0XFFB721FF),
@@ -24,13 +27,8 @@ class ButtonWidget extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(
-              Icons.arrow_right_alt_rounded,
-              color: Colors.white,
-              size: 45,
-              //weight: 4,
-            ),
+          children: [
+            child,
           ],
         ),
       ),

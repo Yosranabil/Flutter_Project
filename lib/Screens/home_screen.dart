@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:practice/Screens/search_screen.dart';
 
 class Day{
-  final String day, date, img;
-  bool today;
+  final String time, img;
+  bool now;
   int degree;
 
-  Day({required this.day,required this.date,required this.img, required this.today, required this.degree});
+  Day({required this.time,required this.img, required this.now, required this.degree});
 }
 
 class HomeScreen extends StatefulWidget {
@@ -19,55 +19,84 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  List<Day> days = [
+  List<Day> today = [
     Day(
-      day: "Sun",
-      date: "11",
+      time: "8:00\nAm",
       img: "Assets/Icons/041-cloudy-6.png",
-      today: false,
-      degree: 19,
+      now: false,
+      degree: 27,
     ),
     Day(
-      day: "Mon",
-      date: "12",
-      img: "Assets/Icons/022-cloudy-3.png",
-      today: true,
-      degree: 21,
-    ),
-    Day(
-      day: "Tues",
-      date: "13",
-      img: "Assets/Icons/022-cloudy-3.png",
-      today: false,
-      degree: 22,
-    ),
-    Day(
-      day: "Wed",
-      date: "14",
-      img: "Assets/Icons/044-moon.png",
-      today: false,
-      degree: 25,
-    ),
-    Day(
-      day: "Thurs",
-      date: "15",
+      time: "9:00\nAm",
       img: "Assets/Icons/041-cloudy-6.png",
-      today: false,
-      degree: 26,
+      now: true,
+      degree: 28,
     ),
     Day(
-      day: "Fri",
-      date: "16",
+      time: "10:00\nAm",
+      img: "Assets/Icons/041-cloudy-6.png",
+      now: false,
+      degree: 30,
+    ),
+    Day(
+      time: "11:00\nAm",
+      img: "Assets/Icons/022-cloudy-3.png",
+      now: false,
+      degree: 31,
+    ),
+    Day(
+      time: "12:00\nPM",
+      img: "Assets/Icons/022-cloudy-3.png",
+      now: false,
+      degree: 32,
+    ),
+    Day(
+      time: "1:00\nPM",
+      img: "Assets/Icons/022-cloudy-3.png",
+      now: false,
+      degree: 33,
+    ),
+    Day(
+      time: "2:00 PM",
       img: "Assets/Icons/021-sun-2.png",
-      today: false,
-      degree: 20,
+      now: false,
+      degree: 34,
     ),
     Day(
-      day: "Sat",
-      date: "17",
-      img: "Assets/Icons/018-raining.png",
-      today: false,
-      degree: 19,
+      time: "3:00 PM",
+      img: "Assets/Icons/021-sun-2.png",
+      now: false,
+      degree: 33,
+    ),
+    Day(
+      time: "4:00 PM",
+      img: "Assets/Icons/021-sun-2.png",
+      now: false,
+      degree: 32,
+    ),
+    Day(
+      time: "5:00 PM",
+      img: "Assets/Icons/022-cloudy-3.png",
+      now: false,
+      degree: 31,
+    ),
+    Day(
+      time: "6:00 PM",
+      img: "Assets/Icons/022-cloudy-3.png",
+      now: false,
+      degree: 29,
+    ),
+    Day(
+      time: "7:00 PM",
+      img: "Assets/Icons/044-moon.png",
+      now: false,
+      degree: 28,
+    ),
+    Day(
+      time: "8:00 PM",
+      img: "Assets/Icons/044-moon.png",
+      now: false,
+      degree: 26,
     ),
   ];
 
@@ -90,6 +119,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
+            SizedBox(
+              width: 35,
+            ),
             Icon(
               Icons.location_on_rounded,
               color: Color.fromRGBO(98, 32, 255, 1),
@@ -109,35 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         centerTitle: true,
-        actions:  [
-          Padding(
-            padding: EdgeInsets.all(10,),
-            child: InkWell(
-              child: Material(
-                borderRadius: BorderRadius.all(Radius.circular(25)),
-                elevation: 2,
-                child: CircleAvatar(
-                  radius: 23,
-                  backgroundColor: Color.fromRGBO(220, 220, 220,1),
-                  child: CircleAvatar(
-                    radius: 20,
-                    child: IconButton(
-                      onPressed:(){
-                        showSearch(
-                          context: context,
-                          delegate: MySearchDelegate(),
-
-                        );
-                      },
-                      icon: Icon(
-                        Icons.search,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ), //search icon
+        actions:  const [
           Padding(
             padding: EdgeInsets.all(10,),
             child: InkWell(
@@ -299,9 +303,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 200,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => buildWeekWeather(days[index]),
+                      itemBuilder: (context, index) => buildWeekWeather(today[index]),
                       separatorBuilder: (context, index) => const SizedBox(width: 5,),
-                      itemCount: days.length,
+                      itemCount: today.length,
                     ),
                   ),
                 ],
@@ -323,9 +327,9 @@ class _HomeScreenState extends State<HomeScreen> {
               elevation: 5,
               borderRadius: BorderRadiusDirectional.circular(37),
               child: Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  gradient: d.today? const LinearGradient(
+                  gradient: d.now? const LinearGradient(
                     colors: [
                       Color(0XFF21D4FD),
                       Color(0XFFB721FF),
@@ -342,40 +346,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      d.day,
+                      d.time,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: d.today? Colors.white : Colors.black,
+                        color: d.now? Colors.white : Colors.black,
                       ),
-                    ),
-                    Text(
-                      "${d.date} Feb",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: d.today? Colors.white : Colors.black54,
-                      ),
-                    ),
-                    const SizedBox(
-                        height: 20,
-                      ),
-                    Image(
-                      image: AssetImage(d.img),
-                      height: 45,
-                      width: 45,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
+                        vertical: 15,
                       ),
-                      child: Text(
-                        "${d.degree}\u00b0",
-                        style: TextStyle(
-                          color: d.today? Colors.white : Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ),
+                      child: Image(
+                        image: AssetImage(d.img),
+                        height: 45,
+                        width: 45,
+                      ),
+                    ),
+                    Text(
+                      "${d.degree}\u00b0",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: d.now? Colors.white : Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
                       ),
                     ),
                   ],

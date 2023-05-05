@@ -57,12 +57,34 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          InkWell(
+            child: IconButton(
+              color: Colors.white,
+              onPressed:(){
+                showSearch(
+                  context: context,
+                  delegate: MySearchDelegate(),
+                );
+              },
+              icon: const Icon(
+                Icons.search,
+                size: 35,
+              ),
+            ),
+          ),
+        ],
+      ),
         body: Column(
           children: [
             Container(
               height: size.height*0.75,
               width: size.width,
-              decoration:  BoxDecoration(
+              decoration:  const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -78,7 +100,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 child: Center(
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         'Cairo',
                         style: TextStyle(
                           fontSize: 40,
@@ -87,7 +109,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 13.0,),
+                      const SizedBox(height: 13.0,),
                       Text(
                         'Today, 7 Sep',
                         style: TextStyle(
@@ -97,16 +119,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 10.0,),
-                      Image(
+                      const SizedBox(height: 10.0,),
+                      const Image(
                         image: AssetImage(
                           'Assets/Icons/cloudy.png',
                         ),
                         width: 200.0,
                         height: 200.0,
                       ),
-                      SizedBox(height: 10.0,),
-                      Text(
+                      const SizedBox(height: 10.0,),
+                      const Text(
                         '17°',
                         style: TextStyle(
                           fontSize: 60,
@@ -115,8 +137,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 10.0,),
-                      Text(
+                      const SizedBox(height: 10.0,),
+                      const Text(
                         'Partly Cloudy',
                         style: TextStyle(
                           fontSize: 20,
@@ -144,24 +166,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Image(
+                                          const Image(
                                             image: AssetImage(
                                               'Assets/Icons/021-sun-2.png',
                                             ),
                                             width: 15.0,
                                             height: 15.0,
                                           ),
-                                          SizedBox(width: 5.0,),
+                                          const SizedBox(width: 5.0,),
                                           Text(
                                             'Uv index'.toUpperCase(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.white,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 5.0,),
-                                      Text(
+                                      const SizedBox(height: 5.0,),
+                                      const Text(
                                         '0',
                                         style: TextStyle(
                                           fontSize: 20.0,
@@ -176,7 +198,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 Container(
                                   width: 0.5,
                                   height: 45.0,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                      color: Colors.white,
 
                                   ),
@@ -188,24 +210,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Image(
+                                          const Image(
                                             image: AssetImage(
                                               'Assets/Icons/wind.png',
                                             ),
                                             width: 15.0,
                                             height: 15.0,
                                           ),
-                                          SizedBox(width: 5.0,),
+                                          const SizedBox(width: 5.0,),
                                           Text(
                                             'Wind'.toUpperCase(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.white,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 5.0,),
-                                      Text(
+                                      const SizedBox(height: 5.0,),
+                                      const Text(
                                         '3 m/s',
                                         style: TextStyle(
                                           fontSize: 20.0,
@@ -220,7 +242,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 Container(
                                   width: 0.5,
                                   height: 45.0,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                       color: Colors.white
                                   ),
                                 ),
@@ -231,25 +253,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Image(
+                                          const Image(
                                             image: AssetImage(
                                               'Assets/Icons/drop.png',
                                             ),
                                             width: 15.0,
                                             height: 15.0,
                                           ),
-                                          SizedBox(width: 5.0,),
+                                          const SizedBox(width: 5.0,),
                                           Text(
                                             'Humidity'.toUpperCase(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                color: Colors.white,
 
                                             ),
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 5.0,),
-                                      Text(
+                                      const SizedBox(height: 5.0,),
+                                      const Text(
                                         '86%',
                                         style: TextStyle(
                                           fontSize: 20.0,
@@ -277,7 +299,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 padding: const EdgeInsets.all( 10.0),
                 child: Container(
                   decoration: BoxDecoration(
-                        color: Color(0xff218bfd),
+                        color: const Color(0xff218bfd),
                       borderRadius: BorderRadius.circular(20)
                   ),
                   child:ListView.separated(
@@ -285,7 +307,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     scrollDirection: Axis.horizontal,
                     itemCount: details.length,
                     itemBuilder:(context,index)=> buildDetailsModel(details[index]),
-                    separatorBuilder: (context,index)=>SizedBox(width: 10,),
+                    separatorBuilder: (context,index)=>const SizedBox(width: 10,),
                   ),
 
 
@@ -304,8 +326,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
         children: [
           Expanded(
             child: Text(
-              '${details.hour}',
-              style: TextStyle(
+              details.hour,
+              style: const TextStyle(
                 color:  Colors.white,
                 fontSize: 15.0,
                 fontWeight: FontWeight.bold,
@@ -315,16 +337,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ),
           Expanded(
             child: Image(
-              image: AssetImage('${details.imageUrl}',),
+              image: AssetImage(details.imageUrl,),
               width: 60.0,
               height: 60.0,
             ),
           ),
-          SizedBox(height: 10.0,),
+          const SizedBox(height: 10.0,),
           Expanded(
               child: Text(
                 '${details.temperature}°',
-                style: TextStyle(
+                style: const TextStyle(
                  color:  Colors.white,
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,

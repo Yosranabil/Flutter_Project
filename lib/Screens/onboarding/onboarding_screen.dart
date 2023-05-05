@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:practice/shared/Components/defaultButton.dart';
+import '../../Shared/Components/BottomNavBar.dart';
+import '../../shared/Components/buttonWidget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../authentication/signUp_screen.dart';
 
@@ -23,6 +25,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
     _pageController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,16 +88,25 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       ),
                                     ),
                                     const SizedBox(height: 30.0,),
-                                    defaultButton(
+                                    ButtonWidget(
                                       width: 500.0,
                                       height: 50.0,
-                                      onPressed:(){
+                                      onClick:(){
                                         _pageController.nextPage(
                                           duration: const Duration(microseconds: 300),
                                           curve: Curves.easeInToLinear,);
                                       },
-                                      text: 'Next',
                                       radius: 30,
+                                      child: const Text(
+                                        "Next",
+                                        style: TextStyle(
+                                          fontWeight:FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 25.0,
+                                        ),
+                                        textAlign: TextAlign.center,
+
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -158,16 +170,25 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       ),
                                     ),
                                     const SizedBox(height: 30.0,),
-                                    defaultButton(
+                                    ButtonWidget(
                                       width: 500.0,
                                       height: 50.0,
-                                      onPressed:(){
+                                      onClick:(){
                                         _pageController.nextPage(
                                           duration: const Duration(microseconds: 300),
                                           curve: Curves.easeInToLinear,);
-                                        },
-                                      text: 'Next',
+                                      },
                                       radius: 30,
+                                      child: const Text(
+                                        "Next",
+                                        style: TextStyle(
+                                          fontWeight:FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 25.0,
+                                        ),
+                                        textAlign: TextAlign.center,
+
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -230,17 +251,25 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       ),
                                     ),
                                     const SizedBox(height: 30.0,),
-                                    defaultButton(
+                                    ButtonWidget(
                                       width: 500.0,
                                       height: 50.0,
-                                      onPressed:(){
+                                      onClick:(){
                                         Navigator.pushReplacement(
                                             context,
-                                            MaterialPageRoute(builder: (context)=>const SignUpScreen()),
-                                        );
+                                            MaterialPageRoute(builder: (context)=> (FirebaseAuth.instance.currentUser != null)? const BottomNavBar(): const SignUpScreen()));
                                       },
-                                      text: 'Get started',
                                       radius: 30,
+                                      child: const Text(
+                                        "Get Started",
+                                        style: TextStyle(
+                                          fontWeight:FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 25.0,
+                                        ),
+                                        textAlign: TextAlign.center,
+
+                                      ),
                                     ),
                                   ],
                                 ),

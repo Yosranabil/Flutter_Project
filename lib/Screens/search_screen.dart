@@ -69,7 +69,7 @@ class MySearchDelegate extends SearchDelegate{
   @override
   Widget? buildLeading(BuildContext context) => IconButton(
     onPressed: ()=> close(context,null),//close searchbar
-    icon: Icon(
+    icon: const Icon(
         Icons.arrow_back,
       ),
   );
@@ -95,10 +95,10 @@ class MySearchDelegate extends SearchDelegate{
       final input = query.toLowerCase();
       print(input);
 
-      return result!.contains(input);
+      return result.contains(input);
     }).toList();
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white
       ),
       child: ListView.builder(

@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:practice/Screens/authentication/signUp_screen.dart';
-import 'package:practice/Screens/home_screen.dart';
 import 'package:practice/Shared/Components/BottomNavBar.dart';
 import '../../Core/DataProvider/Remote/firebaseHelper.dart';
 import '../../shared/Components/buttonWidget.dart';
 import '../../shared/Components/passtextformfeildWidget.dart';
 import '../../shared/Components/textformfieldWidget.dart';
-import '../../shared/constants/Constants.dart';
+import '../../shared/constants/Variables/Constants.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -112,7 +111,16 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                                   const Spacer(),
                                   ButtonWidget(
+                                    width: 65,
+                                    height: 45,
+                                    radius: 15,
                                     onClick: signInParameter,
+                                    child: const Icon(
+                                      Icons.arrow_right_alt_rounded,
+                                      color: Colors.white,
+                                      size: 45,
+                                      weight: 4,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -121,7 +129,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text(
-                                    "Don\'t have an account?",
+                                    "Don't have an account?",
                                     style: TextStyle(
                                       color: Colors.black54,
                                       fontSize: 16,
