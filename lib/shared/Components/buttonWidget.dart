@@ -29,7 +29,7 @@ class ButtonWidget extends StatelessWidget {
               Icons.arrow_right_alt_rounded,
               color: Colors.white,
               size: 45,
-              weight: 4,
+              //weight: 4,
             ),
           ],
         ),

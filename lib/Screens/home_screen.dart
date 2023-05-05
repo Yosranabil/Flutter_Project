@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:practice/Screens/search_screen.dart';
 
 class Day{
   final String day, date, img;
@@ -108,7 +109,35 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         centerTitle: true,
-        actions: const [
+        actions:  [
+          Padding(
+            padding: EdgeInsets.all(10,),
+            child: InkWell(
+              child: Material(
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+                elevation: 2,
+                child: CircleAvatar(
+                  radius: 23,
+                  backgroundColor: Color.fromRGBO(220, 220, 220,1),
+                  child: CircleAvatar(
+                    radius: 20,
+                    child: IconButton(
+                      onPressed:(){
+                        showSearch(
+                          context: context,
+                          delegate: MySearchDelegate(),
+
+                        );
+                      },
+                      icon: Icon(
+                        Icons.search,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ), //search icon
           Padding(
             padding: EdgeInsets.all(10,),
             child: InkWell(
@@ -127,7 +156,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-          ),
+          ), //person icon
+
         ],
       ),
       body: SingleChildScrollView(
@@ -229,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: 30,
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 vertical: 15,
                               ),
                               child: Image(
@@ -336,7 +366,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 45,
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 5,
                       ),
                       child: Text(
