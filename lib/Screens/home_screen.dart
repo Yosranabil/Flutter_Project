@@ -322,9 +322,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 200,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => buildWeekWeather(today[index]),
+                          itemBuilder: (context, index) => buildWeekWeather(),
                           separatorBuilder: (context, index) => const SizedBox(width: 5,),
-                          itemCount: today.length,
+                          itemCount: 5,
                         ),
                       ),
                     ],
@@ -339,66 +339,81 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buildWeekWeather(Day d) =>
-      Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          children: [
-            Material(
-              elevation: 5,
-              borderRadius: BorderRadiusDirectional.circular(37),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  gradient: d.now? const LinearGradient(
-                    colors: [
-                      Color(0XFF21D4FD),
-                      Color(0XFFB721FF),
-                    ],
-                    begin: Alignment.bottomRight,
-                    end: Alignment.topLeft ,
-                  ) : const LinearGradient(colors: [
-                    Color.fromRGBO(220, 220, 220, 0.5),
-                    Color.fromRGBO(220, 220, 220, 0.5),
-                  ]),
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      d.time,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: d.now? Colors.white : Colors.black,
-                      ),
-                    ),
-                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15,
-                      ),
-                      child: Image(
-                        image: AssetImage('${d.img}'),
-                        height: 45,
-                        width: 45,
-                      ),
-                    ),
-                    Text(
-                      "${d.degree}\u00b0",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: d.now? Colors.white : Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    ),
+  Widget buildWeekWeather() {
+
+    for (int i = 1; i <= 5; i++) {
+
+    }
+    DateTime dateTime = DateTime.parse(data.hours[0]['time'].toString());
+    String timeString = DateFormat('HH:mm').format(dateTime);
+    String dateString = DateFormat('EE MMMM d').format(dateTime);
+
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        children: [
+          Material(
+            elevation: 5,
+            borderRadius: BorderRadiusDirectional.circular(37),
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                gradient: true? const LinearGradient(
+                  colors: [
+                    Color(0XFF21D4FD),
+                    Color(0XFFB721FF),
                   ],
-                ),
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topLeft ,
+                ) : const LinearGradient(colors: [
+                  Color.fromRGBO(220, 220, 220, 0.5),
+                  Color.fromRGBO(220, 220, 220, 0.5),
+                ]),
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    timeString,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: true? Colors.white : Colors.black,
+                    ),
+                  ),
+                  Text(
+                    dateString,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: true? Colors.white : Colors.black,
+                    ),
+                  ),
+                  Image(
+                    image: NetworkImage('https:${data.hours[0]['condition']['icon']}'),
+                    height: 65,
+                    width: 65,
+                    fit: BoxFit.cover,
+                  ),
+                  Text(
+                    "${data.hours[0]['temp_c']}\u00b0",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: true? Colors.white : Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
+
 }

@@ -13,6 +13,7 @@ class weather{
   var pricipe;
   var last_update;
   var feels_like;
+  var hours;
 
   weather({
     required this.cityName,
@@ -28,6 +29,7 @@ class weather{
     required this.pricipe,
     required this.last_update,
     required this.feels_like,
+    required this.hours,
   });
 
   weather.fromJson(Map<String, dynamic> json) {
@@ -44,6 +46,7 @@ class weather{
     pricipe=  json['current']['precip_mm'];
     last_update = json['current']['last_updated'];
     feels_like = json['current']['feelslike_c'];
+    hours = json['forecast']['forecastday'][0]['hour'];
   }
 //
 }
