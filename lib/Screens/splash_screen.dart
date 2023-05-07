@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
       nextScreen: const onboardingScreen(),
       splashIconSize: 250,
-      duration: 5000000000000000000,
+      duration: 5000,
       splashTransition: SplashTransition.fadeTransition,
       animationDuration: const Duration(seconds: 2),
       backgroundColor: Colors.deepPurpleAccent,

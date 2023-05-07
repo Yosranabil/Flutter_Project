@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:practice/Screens/location_screen.dart';
 import '../../Shared/Components/BottomNavBar.dart';
 import '../../shared/Components/buttonWidget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../shared/Constants/Variables/Constants.dart';
 import '../authentication/signUp_screen.dart';
 
 class onboardingScreen extends StatefulWidget {
@@ -257,7 +259,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       onClick:(){
                                         Navigator.pushReplacement(
                                             context,
-                                            MaterialPageRoute(builder: (context)=> (FirebaseAuth.instance.currentUser != null)? const BottomNavBar(): const SignUpScreen()));
+                                            MaterialPageRoute(builder: (context)=> (FirebaseAuth.instance.currentUser != null)? MyLocation(): const SignUpScreen()));
                                       },
                                       radius: 30,
                                       child: const Text(

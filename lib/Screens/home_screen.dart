@@ -1,6 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:practice/Core/DataProvider/weatherData.dart';
 import 'package:practice/Screens/search_screen.dart';
+import 'package:practice/shared/Constants/Variables/Constants.dart';
 
 class Day{
   final String time, img;
@@ -18,6 +21,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  var client = WeatherData();
+  var data;
+  String formattedDate = DateFormat('EEEE, MMMM d').format(DateTime.now());
 
   List<Day> today = [
     Day(
@@ -99,15 +106,19 @@ class _HomeScreenState extends State<HomeScreen> {
       degree: 26,
     ),
   ];
+  info() async{
+    data = await client.getData(TextController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    int temp = data?.temp?.toInt() ?? 0;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        toolbarHeight: 65,
-        leadingWidth: 65,
         leading: const Padding(
           padding: EdgeInsets.all(10.0),
           child: Icon(
@@ -116,29 +127,34 @@ class _HomeScreenState extends State<HomeScreen> {
             size: 30,
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            SizedBox(
-              width: 35,
-            ),
-            Icon(
-              Icons.location_on_rounded,
-              color: Color.fromRGBO(98, 32, 255, 1),
-              size: 27,
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              "Cairo",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                fontSize: 25,
-              ),
-            ),
-          ],
+        toolbarHeight: 65,
+        leadingWidth: 65,
+        title: FutureBuilder(
+          future: info(),
+          builder: (context, snapshot) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.location_on_rounded,
+                  color: Color.fromRGBO(98, 32, 255, 1),
+                  size: 27,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  "${data?.cityName}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 25,
+                  ),
+                ),
+              ],
+            );
+          },
+
         ),
         centerTitle: true,
         actions:  const [
@@ -164,155 +180,160 @@ class _HomeScreenState extends State<HomeScreen> {
 
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 40,
-                horizontal: 10,
-              ),
-              child: Material(
-                elevation: 5,
-                borderRadius: BorderRadiusDirectional.circular(30),
-                child: Container(
-                  width: double.infinity,
-                  height: 250,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0XFF21D4FD),
-                        Color(0XFFB721FF),
-                      ],
-                      begin: Alignment.bottomRight,
-                      end: Alignment.topLeft ,
-                    ),
+      body: FutureBuilder(
+        future: info(),
+        builder: (context, snapshot) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 40,
+                    horizontal: 10,
                   ),
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Positioned(
-                        bottom: 128,
-                        left: 30,
-                        child: Column(
-                          children: const [
-                            Image(
-                                image: AssetImage("Assets/Icons/cloudy.png"),
-                              height: 170,
-                              width: 170,
-                            ),
+                  child: Material(
+                    elevation: 5,
+                    borderRadius: BorderRadiusDirectional.circular(30),
+                    child: Container(
+                      width: double.infinity,
+                      height: 250,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0XFF21D4FD),
+                            Color(0XFFB721FF),
                           ],
+                          begin: Alignment.bottomRight,
+                          end: Alignment.topLeft ,
                         ),
                       ),
-                      Positioned(
-                        left: 210,
-                        child: Column(
-                          children: const [
-                            Text(
-                              "21\u00b0",
-                              style: TextStyle(
-                                fontSize: 98,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white54,
-                              ),
-                            ),
-                            Text(
-                              "Feels Like 25 \u00b0",
-                              style: TextStyle(
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFFEEEEEE),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        top: 120,
-                        left: 20,
-                        child: Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                SizedBox(
-                                  height: 10,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Positioned(
+                            bottom: 95,
+                            child: Column(
+                              children: [
+                                Image(
+                                  image: NetworkImage('https:${data?.icon}'),
+                                  height: 210,
+                                  width: 210,
+                                  fit: BoxFit.cover,
                                 ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            left: 210,
+                            child: Column(
+                              children: [
                                 Text(
-                                  "Rain  Showers",
-                                  style: TextStyle(
+                                  "$temp\u00b0",
+                                  style: const TextStyle(
+                                    fontSize: 98,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 26,
+                                    color: Colors.white54,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
                                 Text(
-                                  "Monday, 12 Feb",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
+                                  "Feels Like ${data?.feels_like}\u00b0",
+                                  style: const TextStyle(
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFFEEEEEE),
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              width: 30,
+                          ),
+                          Positioned(
+                            top: 120,
+                            left: 20,
+                            child: Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "${data?.condition}",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 26,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      formattedDate,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 15,
+                                  ),
+                                  child: Image(
+                                    image: const AssetImage("Assets/Icons/wind.png",),
+                                    height: 110,
+                                    width: 110,
+                                    color: Colors.white.withOpacity(0.2),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 15,
-                              ),
-                              child: Image(
-                                  image: const AssetImage("Assets/Icons/wind.png",),
-                                  height: 110,
-                                  width: 110,
-                                  color: Colors.white.withOpacity(0.2),
-                              ),
-                            ),
-                          ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Today's forecast",
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 200,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => buildWeekWeather(today[index]),
+                          separatorBuilder: (context, index) => const SizedBox(width: 5,),
+                          itemCount: today.length,
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Weekly forecast",
-                    style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => buildWeekWeather(today[index]),
-                      separatorBuilder: (context, index) => const SizedBox(width: 5,),
-                      itemCount: today.length,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
 
     );
@@ -354,12 +375,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: d.now? Colors.white : Colors.black,
                       ),
                     ),
-                    Padding(
+                     Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 15,
                       ),
                       child: Image(
-                        image: AssetImage(d.img),
+                        image: AssetImage('${d.img}'),
                         height: 45,
                         width: 45,
                       ),
