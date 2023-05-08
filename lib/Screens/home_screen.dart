@@ -1,17 +1,8 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/Core/DataProvider/weatherData.dart';
-import 'package:practice/Screens/search_screen.dart';
 import 'package:practice/shared/Constants/Variables/Constants.dart';
 
-class Day{
-  final String time, img;
-  bool now;
-  int degree;
-
-  Day({required this.time,required this.img, required this.now, required this.degree});
-}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,86 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   var data;
   String formattedDate = DateFormat('EEEE, MMMM d').format(DateTime.now());
 
-  List<Day> today = [
-    Day(
-      time: "8:00\nAm",
-      img: "Assets/Icons/041-cloudy-6.png",
-      now: false,
-      degree: 27,
-    ),
-    Day(
-      time: "9:00\nAm",
-      img: "Assets/Icons/041-cloudy-6.png",
-      now: true,
-      degree: 28,
-    ),
-    Day(
-      time: "10:00\nAm",
-      img: "Assets/Icons/041-cloudy-6.png",
-      now: false,
-      degree: 30,
-    ),
-    Day(
-      time: "11:00\nAm",
-      img: "Assets/Icons/022-cloudy-3.png",
-      now: false,
-      degree: 31,
-    ),
-    Day(
-      time: "12:00\nPM",
-      img: "Assets/Icons/022-cloudy-3.png",
-      now: false,
-      degree: 32,
-    ),
-    Day(
-      time: "1:00\nPM",
-      img: "Assets/Icons/022-cloudy-3.png",
-      now: false,
-      degree: 33,
-    ),
-    Day(
-      time: "2:00 PM",
-      img: "Assets/Icons/021-sun-2.png",
-      now: false,
-      degree: 34,
-    ),
-    Day(
-      time: "3:00 PM",
-      img: "Assets/Icons/021-sun-2.png",
-      now: false,
-      degree: 33,
-    ),
-    Day(
-      time: "4:00 PM",
-      img: "Assets/Icons/021-sun-2.png",
-      now: false,
-      degree: 32,
-    ),
-    Day(
-      time: "5:00 PM",
-      img: "Assets/Icons/022-cloudy-3.png",
-      now: false,
-      degree: 31,
-    ),
-    Day(
-      time: "6:00 PM",
-      img: "Assets/Icons/022-cloudy-3.png",
-      now: false,
-      degree: 29,
-    ),
-    Day(
-      time: "7:00 PM",
-      img: "Assets/Icons/044-moon.png",
-      now: false,
-      degree: 28,
-    ),
-    Day(
-      time: "8:00 PM",
-      img: "Assets/Icons/044-moon.png",
-      now: false,
-      degree: 26,
-    ),
-  ];
   info() async{
     data = await client.getData(TextController.text);
   }
@@ -322,9 +233,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 200,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => buildWeekWeather(),
+                          itemBuilder: (context, index) => buildHourlyForecast(index),
                           separatorBuilder: (context, index) => const SizedBox(width: 5,),
-                          itemCount: 5,
+                          itemCount: data.hours.length,
                         ),
                       ),
                     ],
@@ -339,14 +250,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buildWeekWeather() {
+  Widget buildHourlyForecast(int i) {
 
-    for (int i = 1; i <= 5; i++) {
-
-    }
-    DateTime dateTime = DateTime.parse(data.hours[0]['time'].toString());
-    String timeString = DateFormat('HH:mm').format(dateTime);
-    String dateString = DateFormat('EE MMMM d').format(dateTime);
+    DateTime dateTime = DateTime.parse(data.hours[i]['time'].toString());
+    String timeString = DateFormat('h:mm a').format(dateTime);
+    int temp = data.hours[i]['temp_c'].toInt() ?? 0;
+    bool isCurrentHour = dateTime.hour == DateTime.now().hour;
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -354,11 +263,11 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Material(
             elevation: 5,
-            borderRadius: BorderRadiusDirectional.circular(37),
+            borderRadius: BorderRadiusDirectional.circular(40),
             child: Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                gradient: true? const LinearGradient(
+                gradient: isCurrentHour? const LinearGradient(
                   colors: [
                     Color(0XFF21D4FD),
                     Color(0XFFB721FF),
@@ -366,48 +275,42 @@ class _HomeScreenState extends State<HomeScreen> {
                   begin: Alignment.bottomRight,
                   end: Alignment.topLeft ,
                 ) : const LinearGradient(colors: [
-                  Color.fromRGBO(220, 220, 220, 0.5),
-                  Color.fromRGBO(220, 220, 220, 0.5),
+                  Color.fromRGBO(220, 220, 220, 1),
+                  Color.fromRGBO(220, 220, 220, 1),
                 ]),
                 borderRadius: BorderRadius.circular(40),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    timeString,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: true? Colors.white : Colors.black,
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20,),
+                    Text(
+                      timeString,
+                      textAlign: TextAlign.center,
+                      style:  TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: isCurrentHour? Colors.white : Colors.black,
+                      ),
                     ),
-                  ),
-                  Text(
-                    dateString,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: true? Colors.white : Colors.black,
+                    Image(
+                      image: NetworkImage('https:${data.hours[i]['condition']['icon'] ?? 0}'),
+                      height: 70,
+                      width: 70,
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                  Image(
-                    image: NetworkImage('https:${data.hours[0]['condition']['icon']}'),
-                    height: 65,
-                    width: 65,
-                    fit: BoxFit.cover,
-                  ),
-                  Text(
-                    "${data.hours[0]['temp_c']}\u00b0",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: true? Colors.white : Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                    Text(
+                      "$temp\u00b0",
+                      textAlign: TextAlign.center,
+                      style:  TextStyle(
+                        color: isCurrentHour? Colors.white : Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 35,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
