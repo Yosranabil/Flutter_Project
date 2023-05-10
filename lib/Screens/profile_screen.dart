@@ -6,7 +6,7 @@ import '../Shared/Components/BottomNavBar.dart';
 import '../Shared/Components/BuildProfileMenu.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+   ProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -27,16 +27,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const BottomNavBar(),));
-            },
-            icon: const Icon(
-              Icons.home_filled,
-              color: Colors.white,
-              size: 30,
-            ),
-        ),
         title: const Text(
             "Profile",
         style: TextStyle(
@@ -262,7 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             text: "Log out",
             press: () async{
               await FireBaseHelper().signOut();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen(),));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen(),));
             },
           ),
           Padding(

@@ -4,7 +4,7 @@ import 'package:practice/Screens/search_screen.dart';
 import '../Model/details_model.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({Key? key}) : super(key: key);
+  DetailsScreen({Key? key}) : super(key: key);
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
