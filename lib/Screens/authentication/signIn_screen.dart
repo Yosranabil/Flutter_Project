@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:practice/Screens/authentication/signUp_screen.dart';
+import 'package:practice/Screens/location_screen.dart';
 import 'package:practice/Shared/Components/BottomNavBar.dart';
 import '../../Core/DataProvider/Remote/firebaseHelper.dart';
 import '../../shared/Components/buttonWidget.dart';
@@ -198,7 +199,7 @@ class _SignInScreenState extends State<SignInScreen> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const BottomNavBar(),
+                builder: (context) => MyLocation(),
               ));
         } else if (value is String) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

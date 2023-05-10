@@ -7,6 +7,9 @@ class MyLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var TextController = TextEditingController();
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -26,9 +29,9 @@ class MyLocation extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BottomNavBar(),));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar(location: TextController.text.toString()),));
                   },
-                  child: Text(
+                  child: const Text(
                     'OK',
                     style: TextStyle(
                       fontSize: 30,

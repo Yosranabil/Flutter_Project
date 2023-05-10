@@ -8,7 +8,7 @@ import '../Model/details_model.dart';
 import '../shared/Constants/Variables/Constants.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({Key? key}) : super(key: key);
+  DetailsScreen({Key? key}) : super(key: key);
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
