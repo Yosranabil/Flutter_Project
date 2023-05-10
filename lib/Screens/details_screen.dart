@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:practice/Screens/search_screen.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
+import '../Core/DataProvider/weatherData.dart';
 import '../Model/details_model.dart';
+import '../shared/Constants/Variables/Constants.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({Key? key}) : super(key: key);
@@ -11,6 +15,12 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  var client = WeatherData();
+  var data;
+  info() async{
+    data = await client.getData(TextController.text);
+  }
+
   List<DetailsModel> details = [
     DetailsModel (
       hour: 'Now',
@@ -53,54 +63,93 @@ class _DetailsScreenState extends State<DetailsScreen> {
       temperature: 23,
     ),
   ];
+  bool _showAppBar = false;
+  final GlobalKey _textKey = GlobalKey();
+  String formattedDate = DateFormat('EEEE, MMMM d').format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   actions: [
+      //     InkWell(
+      //       child: IconButton(
+      //         color: Colors.white,
+      //         onPressed:(){
+      //           showSearch(
+      //             context: context,
+      //             delegate: MySearchDelegate(),
+      //           );
+      //         },
+      //         icon: const Icon(
+      //           Icons.search,
+      //           size: 35,
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // ),
+      appBar: _showAppBar? AppBar(
+        backgroundColor: Color(0xffa95dee),
         elevation: 0,
-        actions: [
-          InkWell(
-            child: IconButton(
-              color: Colors.white,
-              onPressed:(){
-                showSearch(
-                  context: context,
-                  delegate: MySearchDelegate(),
-                );
-              },
-              icon: const Icon(
-                Icons.search,
-                size: 35,
-              ),
-            ),
+        leading: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+        title: const Text(
+          'Weekly Forecast',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 25.0,
+            color: Colors.white,
           ),
-        ],
-      ),
-        body: Column(
+          textAlign: TextAlign.center,
+        ),
+      ):null,
+        body: NotificationListener<ScrollUpdateNotification>(
+            onNotification: (notification) {
+              final RenderBox textRenderBox =
+              _textKey.currentContext?.findRenderObject() as RenderBox;
+              final textTop = textRenderBox.localToGlobal(Offset.zero).dy;
+              if (notification.metrics.pixels >= textTop) {
+                  setState(() {
+                    _showAppBar = true;
+                });
+              } else {
+                setState(() {
+                  _showAppBar = false;
+              });
+              }
+          return false;
+        },
+          child:ListView(
+              children: [
+               Stack(
           children: [
-            Container(
+                  Container(
               height: size.height*0.75,
               width: size.width,
               decoration:  const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors:[Color(0xffa95dee), Color(0xff218bfd)],
-                  ),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors:[Color(0xffa95dee), Color(0xff218bfd)],
+                ),
                 borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40),
-                    bottomRight: Radius.circular(40),
+                  bottomLeft: Radius.circular(40),
+                  bottomRight: Radius.circular(40),
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(top: 50.0,),
+                padding: const EdgeInsets.only(top: 30.0,),
                 child: Center(
                   child: Column(
                     children: [
-                      const Text(
+                       Text(
                         'Cairo',
                         style: TextStyle(
                           fontSize: 40,
@@ -199,7 +248,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   width: 0.5,
                                   height: 45.0,
                                   decoration: const BoxDecoration(
-                                     color: Colors.white,
+                                    color: Colors.white,
 
                                   ),
                                 ),
@@ -231,7 +280,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         '3 m/s',
                                         style: TextStyle(
                                           fontSize: 20.0,
-                                           color: Colors.white,
+                                          color: Colors.white,
 
                                         ),
                                         textAlign: TextAlign.center,
@@ -264,7 +313,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           Text(
                                             'Humidity'.toUpperCase(),
                                             style: const TextStyle(
-                                               color: Colors.white,
+                                              color: Colors.white,
 
                                             ),
                                           ),
@@ -275,7 +324,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         '86%',
                                         style: TextStyle(
                                           fontSize: 20.0,
-                                           color: Colors.white,
+                                          color: Colors.white,
                                         ),
                                         textAlign: TextAlign.center,
                                       ),
@@ -292,43 +341,84 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ),
             ),
-
-            // Temperature of each hour
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all( 10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                        color: const Color(0xff218bfd),
-                      borderRadius: BorderRadius.circular(20)
+                  Container(
+              alignment: Alignment(0.88,0),
+              child: InkWell(
+                child: IconButton(
+                  color: Colors.white,
+                  onPressed:(){
+                    showSearch(
+                      context: context,
+                      delegate: MySearchDelegate(),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.search,
+                    size: 35,
                   ),
-                  child:ListView.separated(
-                    shrinkWrap: false,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: details.length,
-                    itemBuilder:(context,index)=> buildDetailsModel(details[index]),
-                    separatorBuilder: (context,index)=>const SizedBox(width: 10,),
-                  ),
-
-
                 ),
               ),
             ),
           ],
-        )
+               ),
+               SizedBox(height: 8.0,),
+                Container(
+                  key: _textKey,
+                  child: const Text(
+                'Weekly Forecast',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25.0,
+                  color: Color(0xff010826),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+        // Temperature of each hour
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all( 10.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  color:  Colors.grey[200],
+                  borderRadius: BorderRadius.circular(20)
+              ),
+              child:ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                itemCount: details.length,
+                itemBuilder:(context,index)=> buildDetailsModel(details[index]),
+                separatorBuilder: (context,index)=>
+                    Column(
+                      children: [
+                        SizedBox(height: 10.0,),
+                        Container(height: 0.1,color: Color(0xed010826),),
+                      ],
+                    )
+                ,
+              ),
+
+
+            ),
+          ),
+        ),
+      ],
+         ) ,
+        ),
     );
 
   }
   Widget buildDetailsModel(DetailsModel details)=>Padding(
     padding: const EdgeInsets.all(10.0),
     child: Center(
-      child: Column(
+      child: Row(
         children: [
           Expanded(
             child: Text(
               details.hour,
               style: const TextStyle(
-                color:  Colors.white,
+                color: Color(0xff010826),
                 fontSize: 15.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -347,7 +437,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               child: Text(
                 '${details.temperature}°',
                 style: const TextStyle(
-                 color:  Colors.white,
+                  color: Color(0xff010826),
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),

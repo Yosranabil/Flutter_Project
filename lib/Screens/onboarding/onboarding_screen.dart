@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:practice/Screens/home_screen.dart';
 import 'package:practice/Screens/location_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Shared/Components/BottomNavBar.dart';
 import '../../shared/Components/buttonWidget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -27,15 +29,29 @@ class _onboardingScreenState extends State<onboardingScreen> {
     _pageController.dispose();
     super.dispose();
   }
-
+  _storeOnBoardInfo() async{
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('onBoard',isViewed);
+  }
+  List<Color> color = [
+    Color(0XFF0093E9),
+    Color(0xffFFCC70),
+    Color(0xffFC00FF),
+  ];
+  int currentContIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Colors.white,
       body: SafeArea(
         child: Stack(
           children: [
             PageView(
+              onPageChanged: (index){
+                setState(() {
+                  currentContIndex=index;
+                });
+              },
               controller: _pageController,
               children: [
                 Container(
@@ -256,7 +272,8 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                     ButtonWidget(
                                       width: 500.0,
                                       height: 50.0,
-                                      onClick:(){
+                                      onClick:() async{
+                                        await _storeOnBoardInfo();
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(builder: (context)=> (FirebaseAuth.instance.currentUser != null)? MyLocation(): const SignUpScreen()));
@@ -284,6 +301,26 @@ class _onboardingScreenState extends State<onboardingScreen> {
                   ),
                 ),
               ]
+            ),
+            Container(
+              alignment:  Alignment(0.9,-0.95),
+              child: TextButton(
+                  onPressed: () async{
+                    await _storeOnBoardInfo();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context)=>(FirebaseAuth.instance.currentUser != null)? MyLocation(): const SignUpScreen())
+                    );
+                  },
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+              ),
             ),
             //Dot Indicator
             Container(
