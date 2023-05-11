@@ -36,7 +36,6 @@ class DailyForecast {
     required this.maxTemp,
     required this.minTemp,
     required this.condition,
-    //required this.icon,
     required this.maxIcon,
     required this.minIcon,
     required this.rainChance,
@@ -50,32 +49,9 @@ class DailyForecast {
       maxTemp: json['day']['maxtemp_c'].toDouble(),
       minTemp: json['day']['mintemp_c'].toDouble(),
       condition: json['day']['condition']['text'],
-      //icon: json['day']['condition']['icon'],
       maxIcon:hours[12]['condition']['icon'],
       minIcon:nightHours[0]['condition']['icon'],
       rainChance:json['day']['daily_chance_of_rain'],
     );
   }
 }
-
-
-
-
-
-
-// class WeeklyForecast {
-//   final List<dailyForecast> forecasts;
-//
-//   WeeklyForecast({required this.forecasts});
-//
-//   factory WeeklyForecast.fromJson(Map<String, dynamic> json) {
-//     final forecastDays = json['forecast']['forecastday'] as List<dynamic>;
-//
-//     final forecasts = forecastDays
-//         .map((forecastDay) =>
-//         dailyForecast.fromJson(forecastDay['day'] as Map<String, dynamic>))
-//         .toList();
-//
-//     return WeeklyForecast(forecasts: forecasts);
-//   }
-// }

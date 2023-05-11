@@ -82,27 +82,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
               extendBodyBehindAppBar: true,
-              // appBar: AppBar(
-              //   backgroundColor: Colors.transparent,
-              //   elevation: 0,
-              //   actions: [
-              //     InkWell(
-              //       child: IconButton(
-              //         color: Colors.white,
-              //         onPressed:(){
-              //           showSearch(
-              //             context: context,
-              //             delegate: MySearchDelegate(),
-              //           );
-              //         },
-              //         icon: const Icon(
-              //           Icons.search,
-              //           size: 35,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               appBar: _showAppBar ? AppBar(
                 backgroundColor: Color(0xffa95dee),
                 elevation: 0,
@@ -120,24 +99,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   textAlign: TextAlign.center,
                 ),
               ) : null,
-              body:
-              // NotificationListener<ScrollUpdateNotification>(
-              //   onNotification: (notification) {
-              //     final RenderBox textRenderBox =
-              //     _textKey.currentContext?.findRenderObject() as RenderBox;
-              //     final textTop = textRenderBox.localToGlobal(Offset.zero).dy;
-              //     if (notification.metrics.pixels >= textTop) {
-              //       setState(() {
-              //         _showAppBar = true;
-              //       });
-              //     } else {
-              //       setState(() {
-              //         _showAppBar = false;
-              //       });
-              //     }
-              //     return false;
-              //   },
-              FutureBuilder(
+              body: FutureBuilder(
                   future: Future.wait( [info(),dailyInfo()]),
                   builder:(context,AsyncSnapshot<List<dynamic>> snapshot){
                     int temp = data?.temp.toInt() ?? 0;
