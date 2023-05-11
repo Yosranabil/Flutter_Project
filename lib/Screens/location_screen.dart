@@ -29,7 +29,7 @@ class MyLocation extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar(location: TextController.text.toString()),));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>BottomNavBar(location: TextController.text.toString()),));
                   },
                   child: const Text(
                     'OK',

@@ -27,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return FutureBuilder(
         future: info(),
         builder: (context, snapshot) {
@@ -110,14 +109,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Container(
                             width: double.infinity,
                             height: 250,
-                            decoration: const BoxDecoration(
+                            decoration:  BoxDecoration(
                               borderRadius: BorderRadius.all(
                                   Radius.circular(30)),
                               gradient: LinearGradient(
-                                colors: [
-                                  Color(0XFF21D4FD),
-                                  Color(0XFFB721FF),
-                                ],
+                                colors: backgroundColor(),
                                 begin: Alignment.bottomRight,
                                 end: Alignment.topLeft,
                               ),
@@ -392,7 +388,16 @@ class _HomeScreenState extends State<HomeScreen> {
         }
     );
   }
-
+  List<Color> backgroundColor(){
+    if(data!.condition.toLowerCase().contains('sunny')){
+      return [Color(0xfff1c226),Color(0xfffd7502)];
+    }else if(data!.condition.toLowerCase().contains('cloud')){
+      return [Color(0xff354f60), Color(0xff506e81)];
+    }else if(data!.condition.toLowerCase().contains('rain')){
+      return [Color(0xff3878ee),Color(0xff218bfd),];
+    }
+    return [Color(0XFF21D4FD),Color(0XFFB721FF),];
+  }
   Widget buildHourlyForecast(int i) {
 
     DateTime dateTime = DateTime.parse(data.hours[i]['time'].toString());

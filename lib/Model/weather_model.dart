@@ -2,7 +2,7 @@ class weather{
 
   var cityName;
   var icon;
-  var condition;
+  String? condition;
   var temp;
   var wind;
   var humidity;
@@ -14,6 +14,7 @@ class weather{
   var last_update;
   var feels_like;
   var hours;
+   List<dynamic> ?forecast;
 
   weather({
     required this.cityName,
@@ -30,6 +31,7 @@ class weather{
     required this.last_update,
     required this.feels_like,
     required this.hours,
+    required this.forecast,
   });
 
   weather.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class weather{
     last_update = json['current']['last_updated'];
     feels_like = json['current']['feelslike_c'];
     hours = json['forecast']['forecastday'][0]['hour'];
+    forecast = json['forecast']['forecastday'];
   }
 //
 }

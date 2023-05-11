@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../../../Core/DataProvider/weatherData.dart';
 
 var usernameController = TextEditingController();
 var passwordController = TextEditingController();
@@ -45,3 +48,5 @@ Map<String, String> WeatherIcons =  {
   'Light drizzle': 'Assets/Icons/clouds.png',
   'Snowy': 'Assets/Icons/snow (1).png',
 };*/
+// API for day
+
