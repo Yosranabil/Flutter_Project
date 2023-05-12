@@ -21,6 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.circular(20),
@@ -48,29 +49,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Stack(
             clipBehavior: Clip.none,
               children: [
-                Material(
-                  elevation: 3,
-                  borderRadius: BorderRadiusDirectional.circular(30),
-                  child: Container(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    width: double.infinity,
-                    height: 310,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0XFF21D4FD),
-                          Color(0XFFB721FF),
-                        ],
-                        begin: Alignment.bottomRight,
-                        end: Alignment.bottomLeft ,
-                      ),
-                      borderRadius: BorderRadiusDirectional.only(
-                        bottomEnd: Radius.circular(30),
-                        bottomStart: Radius.circular(30),
-                      ),
-                    ),
-                  ),
-                ),
                 Material(
                   elevation: 3,
                   borderRadius: BorderRadiusDirectional.circular(30),

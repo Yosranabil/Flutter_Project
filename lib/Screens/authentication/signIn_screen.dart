@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:practice/Screens/authentication/signUp_screen.dart';
 import 'package:practice/Screens/location_screen.dart';
-import 'package:practice/Shared/Components/BottomNavBar.dart';
 import '../../Core/DataProvider/Remote/firebaseHelper.dart';
 import '../../shared/Components/buttonWidget.dart';
 import '../../shared/Components/passtextformfeildWidget.dart';
 import '../../shared/Components/textformfieldWidget.dart';
 import '../../shared/constants/Variables/Constants.dart';
+import '../onboarding/onboarding_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -72,8 +73,62 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                       ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ButtonWidget(
+                            width: 220,
+                            height: 50,
+                            radius: 15,
+                            onClick: signInWithGoogle,
+                            child: Row(
+                              children: const [
+                                CircleAvatar(
+                                  backgroundImage: AssetImage('Assets/Icons/google.png'),
+                                  radius: 15,
+                                  backgroundColor: Colors.transparent,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Sign in with Google',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 40,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  'Or',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.deepPurple,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            thickness: 1,
+                            endIndent: 50,
+                            indent: 50,
+                            color: Colors.deepPurple[200],
+                          ),
+                        ],
+                      ),
                       Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
                         child: Form(
                           key: _key,
                           child: Column(
@@ -222,5 +277,30 @@ class _SignInScreenState extends State<SignInScreen> {
         }
       });
     }
+  }
+
+  void signInWithGoogle() async {
+
+    try{
+      GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      print(userCredential.user?.displayName);
+
+      if (googleUser != null) {
+        // Navigate to the home page with the signed-in user
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => onboardingScreen()));
+      }
+    }
+    catch(e){
+      print('the error is: $e');
+    }
+
   }
 }

@@ -47,7 +47,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   http: ^0.13.6
   intl: ^0.17.0
-  geolocator: ^9.0.2
+  google_sign_in: ^6.1.0
   sticky_headers: ^0.3.0
 dev_dependencies:
   flutter_test:

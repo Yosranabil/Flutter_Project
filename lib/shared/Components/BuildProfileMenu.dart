@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ProfileItem extends StatelessWidget {
-
   final String text;
   final IconData icon;
   final VoidCallback press;
 
-   const ProfileItem({super.key, required this.text,required this.icon,required this.press});
+  const ProfileItem(
+      {super.key, required this.text, required this.icon, required this.press});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 10,
+        vertical: 5,
         horizontal: 20,
       ),
       child: Material(
@@ -28,7 +28,7 @@ class ProfileItem extends StatelessWidget {
             ),
             child: Row(
               children: [
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
                     icon,
@@ -36,7 +36,9 @@ class ProfileItem extends StatelessWidget {
                     color: const Color(0XFF0093E9),
                   ),
                 ),
-                const SizedBox(width: 10,),
+                const SizedBox(
+                  width: 10,
+                ),
                 Expanded(
                   child: Text(
                     text,

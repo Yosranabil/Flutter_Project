@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import '../../../Core/DataProvider/weatherData.dart';
 
 var usernameController = TextEditingController();
 var passwordController = TextEditingController();
@@ -30,23 +28,4 @@ Map<String, String> WeatherIcons =  {
   'Light drizzle': 'Assets/Icons/cloudsssss.png',
   'Snowy': 'Assets/Icons/snow.png',
 };
-/*Map<String, String> weatherIcons = {
-  'Clear': 'Assets/Icons/021-sun-2.png',
-  'Overcast': 'Assets/Icons/cloud.png',
-  'Cloudy': 'Assets/Icons/clouds.png',
-  'Sunny': 'Assets/Icons/021-sun-2.png',
-  'Windy': 'Assets/Icons/windddyyy.png',
-  'Thunderstorm': 'Assets/Icons/thunder (1).png',
-  'Mist': 'Assets/Icons/cloudy (3).png',
-  'Patchy rain possible': 'Assets/Icons/028-rainy.png',
-  'Light rain shower': 'Assets/Icons/018-raining.png',
-  'Partly cloudy': 'Assets/Icons/rain.png',
-  'Partly windy': 'Assets/Icons/winddd.png',
-  'Partly sunny': 'Assets/Icons/clear-sky.png',
-  'Moderate rain': 'Assets/Icons/018-raining.png',
-  'Light rain': 'Assets/Icons/rain (1).png',
-  'Light drizzle': 'Assets/Icons/clouds.png',
-  'Snowy': 'Assets/Icons/snow (1).png',
-};*/
-// API for day
 

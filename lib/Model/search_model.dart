@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SearchModel{
+class SearchModel {
   final String location;
   final String weatherStatus;
   final int temperature;
@@ -14,6 +14,4 @@ class SearchModel{
     required this.imageUrl,
     required this.colors,
   });
-
-
 }

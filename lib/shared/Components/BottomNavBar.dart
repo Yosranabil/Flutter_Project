@@ -1,12 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:practice/Core/DataProvider/weatherData.dart';
 import 'package:practice/Screens/details_screen.dart';
 import 'package:practice/Screens/home_screen.dart';
 import 'package:practice/Screens/profile_screen.dart';
-
-import '../../Core/DataProvider/weatherData.dart';
 
 class BottomNavBar extends StatefulWidget {
 
@@ -42,14 +39,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Color backgroundColor(){
     if(data!=null) {
       if (data!.condition.toLowerCase().contains('sunny')) {
-        return Color(0xfff1c226);
+        return const Color(0xfff1c226);
       } else if (data!.condition.toLowerCase().contains('cloud')) {
-        return Color(0xff354f60);
+        return const Color(0xff354f60);
       } else if (data!.condition.toLowerCase().contains('rain')) {
-        return Color(0xff3878ee);
+        return const Color(0xff3878ee);
       }
     }
-    return Color(0xff3878ee);
+    return const Color(0xff3878ee);
   }
   int _selectedIndex = 0;
   @override
