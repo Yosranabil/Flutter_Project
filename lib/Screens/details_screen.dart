@@ -12,7 +12,8 @@ class DetailsScreen extends StatefulWidget {
   String? locationController;
   DetailsScreen({required this.locationController});
   @override
-  State<DetailsScreen> createState() => _DetailsScreenState(loc:locationController);
+  State<DetailsScreen> createState() =>
+      _DetailsScreenState(loc: locationController);
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
@@ -23,10 +24,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
   var dataDaily;
 
   String formattedDate = DateFormat('EEEE, MMMM d').format(DateTime.now());
-  Future<dynamic> info() async{
+  Future<dynamic> info() async {
     data = await client.getData(loc);
   }
-  Future<dynamic> dailyInfo() async{
+
+  Future<dynamic> dailyInfo() async {
     dataDaily = await client.getDataDaily(loc);
   }
 
@@ -37,350 +39,390 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-              extendBodyBehindAppBar: true,
-              appBar: _showAppBar ? AppBar(
-                backgroundColor: Color(0xffa95dee),
-                elevation: 0,
-                leading: Icon(
-                  Icons.arrow_back,
+      extendBodyBehindAppBar: true,
+      appBar: _showAppBar
+          ? AppBar(
+              backgroundColor: Color(0xffa95dee),
+              elevation: 0,
+              leading: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              title: const Text(
+                'Weekly Forecast',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25.0,
                   color: Colors.white,
                 ),
-                title: const Text(
-                  'Weekly Forecast',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.0,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ) : null,
-              body: FutureBuilder(
-                  future: Future.wait( [info(),dailyInfo()]),
-                  builder:(context,AsyncSnapshot<List<dynamic>> snapshot){
-                    int temp = data?.temp.toInt() ?? 0;
-                    if(snapshot.connectionState == ConnectionState.done) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Stack(
-                              children: [
-                                Container(
-                                  height: size.height * 0.75,
-                                  width: size.width,
-                                  decoration:  BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: backgroundColor(),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : null,
+      body: FutureBuilder(
+          future: Future.wait([info(), dailyInfo()]),
+          builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+            int temp;
+            try {
+              temp = data?.temp.toInt() ?? 0;
+            } catch (e) {
+              print("Time Conversion Null: $e");
+              temp = 0;
+            }
+            if (snapshot.connectionState == ConnectionState.done) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          height: size.height * 0.75,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: backgroundColor(),
+                            ),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(40),
+                              bottomRight: Radius.circular(40),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              top: 60.0,
+                            ),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${data?.cityName}',
+                                    style: TextStyle(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(40),
-                                      bottomRight: Radius.circular(40),
-                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 60.0,),
-                                    child: Center(
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            '${data?.cityName}',
-                                            style: TextStyle(
-                                              fontSize: 40,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(height: 13.0,),
-                                          Text(
-                                            formattedDate,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              //fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(height: 10.0,),
-                                          Image(
-                                            image: (WeatherIcons[data?.condition] !=
-                                                null)
-                                                ? AssetImage(
-                                                "${WeatherIcons[data?.condition]}")
-                                                : const AssetImage(
-                                                'Assets/Icons/cloudy.png'),
-                                            width: 200.0,
-                                            height: 200.0,
-                                          ),
-                                          const SizedBox(height: 10.0,),
-                                          Text(
-                                            '$temp\u00b0',
-                                            style: TextStyle(
-                                              fontSize: 60,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(height: 20.0,),
-                                          Text(
-                                            '${data?.condition}',
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          // Temperature status
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(10.0),
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: 100.0,
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(
-                                                        30)
-                                                ),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment
+                                  const SizedBox(
+                                    height: 13.0,
+                                  ),
+                                  Text(
+                                    formattedDate,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      //fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Image(
+                                    image: (WeatherIcons[data?.condition] !=
+                                            null)
+                                        ? AssetImage(
+                                            "${WeatherIcons[data?.condition]}")
+                                        : const AssetImage(
+                                            'Assets/Icons/cloudy.png'),
+                                    width: 200.0,
+                                    height: 200.0,
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    '$temp\u00b0',
+                                    style: TextStyle(
+                                      fontSize: 60,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Text(
+                                    '${data?.condition}',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  // Temperature status
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 100.0,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
                                                             .center,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment
-                                                                .center,
-                                                            children: [
-                                                              const Image(
-                                                                image: AssetImage(
-                                                                  'Assets/Icons/021-sun-2.png',
-                                                                ),
-                                                                width: 15.0,
-                                                                height: 15.0,
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 5.0,),
-                                                              Text(
-                                                                'Uv index'.toUpperCase(),
-                                                                style: const TextStyle(
-                                                                  color: Colors.white,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(height: 5.0,),
-                                                          Text(
-                                                            '${data?.uv}',
-                                                            style: TextStyle(
-                                                              fontSize: 20.0,
-                                                              color: Colors.white,
-                                                            ),
-                                                            textAlign: TextAlign.center,
-                                                          ),
-                                                        ],
+                                                    children: [
+                                                      const Image(
+                                                        image: AssetImage(
+                                                          'Assets/Icons/021-sun-2.png',
+                                                        ),
+                                                        width: 15.0,
+                                                        height: 15.0,
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      width: 0.5,
-                                                      height: 45.0,
-                                                      decoration: const BoxDecoration(
-                                                        color: Colors.white,
-
+                                                      const SizedBox(
+                                                        width: 5.0,
                                                       ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment
-                                                            .center,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment
-                                                                .center,
-                                                            children: [
-                                                              const Image(
-                                                                image: AssetImage(
-                                                                  'Assets/Icons/wind.png',
-                                                                ),
-                                                                width: 15.0,
-                                                                height: 15.0,
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 5.0,),
-                                                              Text(
-                                                                'Wind'.toUpperCase(),
-                                                                style: const TextStyle(
-                                                                  color: Colors.white,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(height: 5.0,),
-                                                          Text(
-                                                            '${data?.wind} k/h',
-                                                            style: TextStyle(
-                                                              fontSize: 20.0,
-                                                              color: Colors.white,
-
-                                                            ),
-                                                            textAlign: TextAlign.center,
-                                                          ),
-                                                        ],
+                                                      Text(
+                                                        'Uv index'
+                                                            .toUpperCase(),
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                        ),
                                                       ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                  Text(
+                                                    '${data?.uv}',
+                                                    style: TextStyle(
+                                                      fontSize: 20.0,
+                                                      color: Colors.white,
                                                     ),
-                                                    Container(
-                                                      width: 0.5,
-                                                      height: 45.0,
-                                                      decoration: const BoxDecoration(
-                                                          color: Colors.white
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment
-                                                            .center,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment
-                                                                .center,
-                                                            children: [
-                                                              const Image(
-                                                                image: AssetImage(
-                                                                  'Assets/Icons/drop.png',
-                                                                ),
-                                                                width: 15.0,
-                                                                height: 15.0,
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 5.0,),
-                                                              Text(
-                                                                'Humidity'
-                                                                    .toUpperCase(),
-                                                                style: const TextStyle(
-                                                                  color: Colors.white,
-
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(height: 5.0,),
-                                                          Text(
-                                                            '${data?.humidity}%',
-                                                            style: TextStyle(
-                                                              fontSize: 20.0,
-                                                              color: Colors.white,
-                                                            ),
-                                                            textAlign: TextAlign.center,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                               // Search Icon
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 30.0),
-                                  child: Container(
-                                    alignment: Alignment(0.88,.9),
-                                    child: InkWell(
-                                      child: IconButton(
-                                        color: Colors.white,
-                                        onPressed:() async {
-                                          showSearch(
-                                              context: context,
-                                              delegate: MySearchDelegate()
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          Icons.search,
-                                          size: 35,
+                                            Container(
+                                              width: 0.5,
+                                              height: 45.0,
+                                              decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const Image(
+                                                        image: AssetImage(
+                                                          'Assets/Icons/wind.png',
+                                                        ),
+                                                        width: 15.0,
+                                                        height: 15.0,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 5.0,
+                                                      ),
+                                                      Text(
+                                                        'Wind'.toUpperCase(),
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                  Text(
+                                                    '${data?.wind} k/h',
+                                                    style: TextStyle(
+                                                      fontSize: 20.0,
+                                                      color: Colors.white,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 0.5,
+                                              height: 45.0,
+                                              decoration: const BoxDecoration(
+                                                  color: Colors.white),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const Image(
+                                                        image: AssetImage(
+                                                          'Assets/Icons/drop.png',
+                                                        ),
+                                                        width: 15.0,
+                                                        height: 15.0,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 5.0,
+                                                      ),
+                                                      Text(
+                                                        'Humidity'
+                                                            .toUpperCase(),
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                  Text(
+                                                    '${data?.humidity}%',
+                                                    style: TextStyle(
+                                                      fontSize: 20.0,
+                                                      color: Colors.white,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-
-                              ],
-                            ),
-                            SizedBox(height: 20.0,),
-                            Container(
-                              //key: _textKey,
-                              child: const Text(
-                                'Weekly Forecast',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25.0,
-                                  color: Color(0xff010826),
-                                ),
-                                textAlign: TextAlign.center,
+                                ],
                               ),
                             ),
-                            // weekly forecast
-                            ListView.separated(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              itemCount:dataDaily.length ,
-                              itemBuilder: (context, index) =>buildDetailsModel(context,index),
-                              separatorBuilder: (context, index) =>
-                                  Column(
-                                    children: [
-                                      SizedBox(height: 10.0,),
-                                      Container(height: 0.1, color: Color(0xed010826),),
-                                    ],
-                                  )
-                              ,
-                            ),
-                          ],
+                          ),
                         ),
-                      );
-                    }
-                    else if(snapshot.connectionState == ConnectionState.waiting)
-                    {
-                      return  const Center(child: CircularProgressIndicator(color: Colors.deepPurple,),);
-                    }
-                    return Container();
-                  }
-              ),
-            );
+                        // Search Icon
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30.0),
+                          child: Container(
+                            alignment: Alignment(0.88, .9),
+                            child: InkWell(
+                              child: IconButton(
+                                color: Colors.white,
+                                onPressed: () async {
+                                  showSearch(
+                                      context: context,
+                                      delegate: MySearchDelegate());
+                                },
+                                icon: const Icon(
+                                  Icons.search,
+                                  size: 35,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Container(
+                      //key: _textKey,
+                      child: const Text(
+                        'Weekly Forecast',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                          color: Color(0xff010826),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    // weekly forecast
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemCount: dataDaily.length,
+                      itemBuilder: (context, index) =>
+                          buildDetailsModel(context, index),
+                      separatorBuilder: (context, index) => Column(
+                        children: [
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Container(
+                            height: 0.1,
+                            color: Color(0xed010826),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.deepPurple,
+                ),
+              );
+            }
+            return Container();
+          }),
+    );
   }
 
-  List<Color> backgroundColor(){
-    if(data!.condition.toLowerCase().contains('sunny')){
-      return [Color(0xfff1c226),Color(0xfffd7502)];
-    }else if(data!.condition.toLowerCase().contains('cloud')){
+  List<Color> backgroundColor() {
+    if (data!.condition.toLowerCase().contains('sunny')) {
+      return [Color(0xfff1c226), Color(0xfffd7502)];
+    } else if (data!.condition.toLowerCase().contains('cloud')) {
       return [Color(0xff354f60), Color(0xff506e81)];
-    }else if(data!.condition.toLowerCase().contains('rain')){
-      return [Color(0xff3878ee),Color(0xff218bfd),];
-    }else if(data!.condition.toLowerCase().contains('clear')){
-      return [Color(0xff85adf8),Color(0xff5890cc),];
+    } else if (data!.condition.toLowerCase().contains('rain')) {
+      return [
+        Color(0xff3878ee),
+        Color(0xff218bfd),
+      ];
+    } else if (data!.condition.toLowerCase().contains('clear')) {
+      return [
+        Color(0xff85adf8),
+        Color(0xff5890cc),
+      ];
     }
-    return [Color(0XFF21D4FD),Color(0XFFB721FF),];
+    return [
+      Color(0XFF21D4FD),
+      Color(0XFFB721FF),
+    ];
   }
-  Widget buildDetailsModel(context,index){
+
+  Widget buildDetailsModel(context, index) {
     var dateTime = DateTime.parse(dataDaily[index].date);
     var dayName = DateFormat('EEEE', 'en_US').format(dateTime);
-    var today= DateTime.now();
+    var today = DateTime.now();
     var tomorrow = today.add(Duration(days: 1));
     var formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTime);
     var formattedTomorrow = DateFormat('yyyy-MM-dd').format(tomorrow);
     var formattedToday = DateFormat('yyyy-MM-dd').format(today);
 
-
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -388,8 +430,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
             Expanded(
               flex: 2,
               child: Text(
-                formattedDateTime==formattedToday ? 'Today' : formattedDateTime == formattedTomorrow ? 'Tomorrow'
-                    : dayName,
+                formattedDateTime == formattedToday
+                    ? 'Today'
+                    : formattedDateTime == formattedTomorrow
+                        ? 'Tomorrow'
+                        : dayName,
                 style: const TextStyle(
                   color: Color(0xff010826),
                   fontSize: 18.0,
@@ -398,15 +443,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 //textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(width: 10.0,),
+            SizedBox(
+              width: 10.0,
+            ),
             Expanded(
               child: Row(
                 children: [
                   const Image(
-                    image: AssetImage('Assets/Icons/umbrella.png',),
+                    image: AssetImage(
+                      'Assets/Icons/umbrella.png',
+                    ),
                     width: 15.0,
-                    height: 15.0,),
-                  SizedBox(width: 3.0,),
+                    height: 15.0,
+                  ),
+                  SizedBox(
+                    width: 3.0,
+                  ),
                   Text('${dataDaily[index].rainChance}%')
                 ],
               ),
@@ -452,5 +504,4 @@ class _DetailsScreenState extends State<DetailsScreen> {
       ),
     );
   }
-
 }
