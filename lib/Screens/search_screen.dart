@@ -49,7 +49,7 @@ class MySearchDelegate extends SearchDelegate{
         future: Future.wait([
           client.location(query),
           client.getData(query),
-          client.getDataDaily(query),
+          //client.getDataDaily(query),
         ]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

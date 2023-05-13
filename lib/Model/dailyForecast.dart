@@ -1,27 +1,4 @@
-// class dailyForecast{
-//   //List<dynamic>? days;
-//   var date;
-//   var maxTemp;
-//   var minTemp;
-//   var condition;
-//   var icon;
-//   dailyForecast({
-//     //required this.days,
-//     required this.date,
-//     required this.maxTemp,
-//     required this.minTemp,
-//     required this.condition,
-//     required this.icon,
-//
-// });
-//  dailyForecast.fromJson(Map<String, dynamic> json){
-//     date = json['forecast']['forecastday']['date'];
-//     maxTemp = json['forecast']['forecastday']['day']['maxtemp_c'];
-//     minTemp = json['forecast']['forecastday']['day']['mintemp_c'];
-//     icon = json['forecast']['forecastday']['condition']['icon'];
-//  }
-//
-// }
+
 class DailyForecast {
   var date;
   var maxTemp;

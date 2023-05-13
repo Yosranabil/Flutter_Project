@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       "${data?.cityName}",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                       color: Colors.black,
+                     //  color: Colors.black,
                         fontSize: 25,
                       ),
                     ),

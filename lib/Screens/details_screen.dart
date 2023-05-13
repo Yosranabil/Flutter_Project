@@ -5,7 +5,6 @@ import 'package:practice/Screens/search_screen.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 import '../Core/DataProvider/weatherData.dart';
-import '../Model/details_model.dart';
 import '../shared/Constants/Variables/Constants.dart';
 
 class DetailsScreen extends StatefulWidget {
