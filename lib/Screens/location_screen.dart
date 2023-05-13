@@ -6,8 +6,7 @@ import '../Core/Services/sharedPreferences.dart';
 import '../shared/Constants/Variables/Constants.dart';
 
 class MyLocation extends StatelessWidget {
-
-  var client =WeatherData();
+  var client = WeatherData();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,8 @@ class MyLocation extends StatelessWidget {
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("Assets/Images/4893007a48c9d8642ec855e0896780aa.jpg"),
+          image:
+          AssetImage("Assets/Images/4893007a48c9d8642ec855e0896780aa.jpg"),
           fit: BoxFit.cover,
         ),
       ),
@@ -90,7 +90,8 @@ class MyLocation extends StatelessWidget {
                               color: Colors.deepPurple,
                             ),
                             validator: (value) {
-                              if (value!.isEmpty || !locExp.hasMatch(value.replaceAll(' ', ''))) {
+                              if (value!.isEmpty ||
+                                  !locExp.hasMatch(value.replaceAll(' ', ''))) {
                                 return 'A valid location should be at least three letters';
                               } else {
                                 return null;
@@ -110,14 +111,13 @@ class MyLocation extends StatelessWidget {
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2,
-                                    color: Colors.deepPurple.withOpacity(0.5)
-                                ),
+                                    color: Colors.deepPurple.withOpacity(0.5)),
                                 borderRadius: BorderRadius.circular(40.0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    width: 2,
-                                    color: Colors.deepPurple,
+                                  width: 2,
+                                  color: Colors.deepPurple,
                                 ),
                                 borderRadius: BorderRadius.circular(40.0),
                               ),
@@ -137,23 +137,65 @@ class MyLocation extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        onClick: () async
-                        {
-                          _prefService.createCache(locController.text.toString()).whenComplete(() async {
-                            if (k.currentState!.validate())
-                            {
-                              var result = await client.location(locController.text.toString());
+                        onClick: () async {
+                          _prefService
+                              .createCache(locController.text.toString())
+                              .whenComplete(() async {
+                            if (k.currentState!.validate()) {
+                              var result = await client
+                                  .location(locController.text.toString());
                               if (result.isEmpty) {
                                 // Location not found, inform the user
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: Text('Location Not Found'),
-                                      content: Text('The entered location could not be found.'),
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(30)),
+                                      elevation: 5,
+                                      icon: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.warning_amber_rounded,
+                                            color: Colors.amber,
+                                            size: 35,
+                                          ),
+                                          Divider(
+                                            color: Colors.deepPurple
+                                                .withOpacity(0.5),
+                                            thickness: 1,
+                                            endIndent: 0,
+                                            indent: 0,
+                                          ),
+                                        ],
+                                      ),
+                                      title: Text(
+                                        'Location Not Found',
+                                        style: TextStyle(
+                                          color: Colors.deepPurple,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      content: Text(
+                                        'The entered location could not be found, try again',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.deepPurple,
+                                          fontSize: 17,
+                                        ),
+                                      ),
                                       actions: [
                                         TextButton(
-                                          child: Text('OK'),
+                                          child: Text(
+                                            'OK',
+                                            style: TextStyle(
+                                              color: Colors.amber,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -164,12 +206,16 @@ class MyLocation extends StatelessWidget {
                                 );
                               } else {
                                 // Valid location found, proceed with navigation
-                                _prefService.createCache(locController.text.toString()).whenComplete(() async {
-                                  var result = await _prefService.readCache("location");
+                                _prefService
+                                    .createCache(locController.text.toString())
+                                    .whenComplete(() async {
+                                  var result =
+                                  await _prefService.readCache("location");
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BottomNavBar(location: result),
+                                      builder: (context) =>
+                                          BottomNavBar(location: result),
                                     ),
                                   );
                                 });

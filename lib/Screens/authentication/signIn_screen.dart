@@ -58,7 +58,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadiusDirectional.circular(30),
-                  color: Colors.white.withOpacity(0.5),
+                  //color: Colors.white.withOpacity(0.5),
                 ),
                 child: SingleChildScrollView(
                   child: Column(
