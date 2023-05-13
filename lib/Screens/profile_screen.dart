@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:practice/Screens/authentication/signUp_screen.dart';
 import '../Core/DataProvider/Remote/firebaseHelper.dart';
+import '../Core/ThemeProvider/theme/theme_change.dart';
 import '../Shared/Components/BottomNavBar.dart';
 import '../Shared/Components/BuildProfileMenu.dart';
+import '../shared/Constants/Variables/Constants.dart';
 
 class ProfileScreen extends StatefulWidget {
    ProfileScreen({Key? key}) : super(key: key);
@@ -14,7 +16,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -270,15 +271,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Switch(
-                        value: isSwitched,
-                        onChanged: (value) {
-                          setState(() {
-                            isSwitched = value;
-                          });
-                        },
-                        activeColor: const Color(0XFF0093E9),
-                      ),
+                      child: ChangeThemeButtonWidget(),
                     ),
                   ],
                 ),

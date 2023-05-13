@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:practice/Model/search_model.dart';
 import 'package:practice/Screens/details_screen.dart';
 import '../Core/DataProvider/weatherData.dart';
 

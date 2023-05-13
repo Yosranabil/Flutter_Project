@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         "${data?.cityName}",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          //color: Colors.black,
                           fontSize: 25,
                         ),
                       ),
@@ -229,6 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Today's forecast",
                               style: TextStyle(
                                 fontSize: 23,
+                               // color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -237,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(
                               width: double.infinity,
-                              height: 200,
+                              height: 210,
                               child: ListView.separated(
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) =>
@@ -276,6 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Wind",
                               style: TextStyle(
                                 fontSize: 23,
+                                //color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -412,7 +414,9 @@ class _HomeScreenState extends State<HomeScreen> {
       else if (data!.condition.toLowerCase().contains('rain')) {return [
         Color(0xff3878ee),
         Color(0xff218bfd),
-      ];}
+      ];}else if(data!.condition.toLowerCase().contains('clear')){
+        return [Color(0xff85adf8),Color(0xff5890cc),];
+      }
     }
     catch(e)
     {
@@ -434,6 +438,8 @@ class _HomeScreenState extends State<HomeScreen> {
         return const Color(0xff354f60);
       } else if (data!.condition.toLowerCase().contains('rain')) {
         return const Color(0xff3878ee);
+      }else if(data!.condition.toLowerCase().contains('clear')){
+        return Color(0xff5890cc);
       }
     }
     }

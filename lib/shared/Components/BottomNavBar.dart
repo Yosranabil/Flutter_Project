@@ -13,7 +13,6 @@ class BottomNavBar extends StatefulWidget {
   @override
   State<BottomNavBar> createState() => _BottomNavBarState(myloc: location);
 
-
 }
 class _BottomNavBarState extends State<BottomNavBar> {
   _BottomNavBarState({required this.myloc});
@@ -53,6 +52,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           return const Color(0xff354f60);
         } else if (data!.condition.toLowerCase().contains('rain')) {
           return const Color(0xff3878ee);
+        }else if(data!.condition.toLowerCase().contains('clear')){
+          return Color(0xff5890cc);
         }
       }
       catch(e)

@@ -322,7 +322,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 25.0,
-                                  color: Color(0xff010826),
+                                  //color: Color(0xff010826),
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -391,7 +391,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 formattedDateTime==formattedToday ? 'Today' : formattedDateTime == formattedTomorrow ? 'Tomorrow'
                     : dayName,
                 style: const TextStyle(
-                  color: Color(0xff010826),
+                  //color: Color(0xff010826),
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -429,7 +429,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               child: Text(
                 '${dataDaily[index].maxTemp}°',
                 style: const TextStyle(
-                  color: Color(0xff010826),
+                  //color: Color(0xff010826),
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
                 ),

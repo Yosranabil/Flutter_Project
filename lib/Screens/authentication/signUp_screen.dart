@@ -82,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               textController: usernameController,
                               texttype: TextInputType.name,
                               errortext:
-                              'A valid username should be between 8-30 letters, must start\nwith  an alphabetic character, and not contain any character',
+                              'A valid username should be between 8-30 letters, must start \n with  an alphabetic character, and not contain any character',
                               labeltext: 'Username',
                               textExp: nameExp,
                               icon: Icons.person,

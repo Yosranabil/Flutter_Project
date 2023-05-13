@@ -87,50 +87,52 @@ class _onboardingScreenState extends State<onboardingScreen> {
                             ),
                               child: Padding(
                                 padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  children: [
-                                    const Text(
-                                      'Check real-time weather!',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize:40,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        height: 1.2,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20.0,),
-                                    const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-                                        'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 15,
-                                        height: 1.5,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 30.0,),
-                                    ButtonWidget(
-                                      width: 500.0,
-                                      height: 50.0,
-                                      onClick:(){
-                                        _pageController.nextPage(
-                                          duration: const Duration(microseconds: 300),
-                                          curve: Curves.easeInToLinear,);
-                                      },
-                                      radius: 30,
-                                      child: const Text(
-                                        "Next",
-                                        style: TextStyle(
-                                          fontWeight:FontWeight.bold,
-                                          color: Colors.white,
-                                          fontSize: 25.0,
-                                        ),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        'Check real-time weather!',
                                         textAlign: TextAlign.center,
-
+                                        style: TextStyle(
+                                          fontSize:40,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          height: 1.2,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(height: 20.0,),
+                                      const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                                          'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15,
+                                          height: 1.5,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 30.0,),
+                                      ButtonWidget(
+                                        width: 500.0,
+                                        height: 50.0,
+                                        onClick:(){
+                                          _pageController.nextPage(
+                                            duration: const Duration(microseconds: 300),
+                                            curve: Curves.easeInToLinear,);
+                                        },
+                                        radius: 30,
+                                        child: const Text(
+                                          "Next",
+                                          style: TextStyle(
+                                            fontWeight:FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 25.0,
+                                          ),
+                                          textAlign: TextAlign.center,
+
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                     ),
@@ -170,50 +172,52 @@ class _onboardingScreenState extends State<onboardingScreen> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  children: [
-                                    const Text(
-                                      'Get potential weather!',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 40.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        height: 1.2,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20.0,),
-                                    const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-                                        'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 15,
-                                        height: 1.5,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 30.0,),
-                                    ButtonWidget(
-                                      width: 500.0,
-                                      height: 50.0,
-                                      onClick:(){
-                                        _pageController.nextPage(
-                                          duration: const Duration(microseconds: 300),
-                                          curve: Curves.easeInToLinear,);
-                                      },
-                                      radius: 30,
-                                      child: const Text(
-                                        "Next",
-                                        style: TextStyle(
-                                          fontWeight:FontWeight.bold,
-                                          color: Colors.white,
-                                          fontSize: 25.0,
-                                        ),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        'Get potential weather!',
                                         textAlign: TextAlign.center,
-
+                                        style: TextStyle(
+                                          fontSize: 40.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          height: 1.2,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(height: 20.0,),
+                                      const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                                          'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15,
+                                          height: 1.5,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 30.0,),
+                                      ButtonWidget(
+                                        width: 500.0,
+                                        height: 50.0,
+                                        onClick:(){
+                                          _pageController.nextPage(
+                                            duration: const Duration(microseconds: 300),
+                                            curve: Curves.easeInToLinear,);
+                                        },
+                                        radius: 30,
+                                        child: const Text(
+                                          "Next",
+                                          style: TextStyle(
+                                            fontWeight:FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 25.0,
+                                          ),
+                                          textAlign: TextAlign.center,
+
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -252,68 +256,70 @@ class _onboardingScreenState extends State<onboardingScreen> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  children: [
-                                    const Text(
-                                      'Get the weather and stay safe!',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 40.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        height: 1.2,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20.0,),
-                                    const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-                                        'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 15,
-                                        height: 1.5,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 30.0,),
-                                    ButtonWidget(
-                                      width: 500.0,
-                                      height: 50.0,
-                                      onClick:() async {
-                                        await _storeOnBoardInfo();
-                                        if (FirebaseAuth.instance.currentUser != null)
-                                        {
-                                          _prefService.readCache("location").then((value) {
-                                            if (value != null) {
-                                              Navigator.push(context, MaterialPageRoute(
-                                                builder: (context) => BottomNavBar(location: value),));
-                                            }
-                                            else {
-                                              Navigator.push(context,
-                                                  MaterialPageRoute(builder: (context) => MyLocation(),));
-                                            }
-                                          });
-                                        }
-                                        else
-                                        {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => SignUpScreen()),
-                                          );
-                                        }
-                                      },
-                                      radius: 30,
-                                      child: const Text(
-                                        "Get Started",
-                                        style: TextStyle(
-                                          fontWeight:FontWeight.bold,
-                                          color: Colors.white,
-                                          fontSize: 25.0,
-                                        ),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        'Get the weather and stay safe!',
                                         textAlign: TextAlign.center,
-
+                                        style: TextStyle(
+                                          fontSize: 40.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          height: 1.2,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(height: 20.0,),
+                                      const Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                                          'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15,
+                                          height: 1.5,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 30.0,),
+                                      ButtonWidget(
+                                        width: 500.0,
+                                        height: 50.0,
+                                        onClick:() async {
+                                          await _storeOnBoardInfo();
+                                          if (FirebaseAuth.instance.currentUser != null)
+                                          {
+                                            _prefService.readCache("location").then((value) {
+                                              if (value != null) {
+                                                Navigator.push(context, MaterialPageRoute(
+                                                  builder: (context) => BottomNavBar(location: value),));
+                                              }
+                                              else {
+                                                Navigator.push(context,
+                                                    MaterialPageRoute(builder: (context) => MyLocation(),));
+                                              }
+                                            });
+                                          }
+                                          else
+                                          {
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => SignUpScreen()),
+                                            );
+                                          }
+                                        },
+                                        radius: 30,
+                                        child: const Text(
+                                          "Get Started",
+                                          style: TextStyle(
+                                            fontWeight:FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 25.0,
+                                          ),
+                                          textAlign: TextAlign.center,
+
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
