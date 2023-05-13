@@ -68,6 +68,13 @@ class MyLocation extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Text(
+                        'please be sure from the spelling',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.deepPurple.withOpacity(0.6),
+                        ),
+                      ),
                       Divider(
                         color: Colors.deepPurple.withOpacity(0.5),
                         thickness: 1,

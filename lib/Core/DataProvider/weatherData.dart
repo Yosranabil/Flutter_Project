@@ -7,8 +7,15 @@ class WeatherData {
   Future<weather> getData(var location) async {
     var uricall = Uri.parse(
         'http://api.weatherapi.com/v1/forecast.json?key=e8969a727ad44f2fad0205208232604&q=$location&days=7&aqi=no&alerts=no');
-    var response = await http.get(uricall);
-    var body = jsonDecode(response.body);
+    var response;
+    var body;
+    try{
+      response = await http.get(uricall);
+      body = jsonDecode(response.body);
+    }
+    catch(e){
+      print("The error is: $e");
+    }
     return weather.fromJson(body);
   }
 

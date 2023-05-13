@@ -157,11 +157,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   Image(
                                     image: (WeatherIcons[data?.condition] !=
-                                            null)
+                                        null)
                                         ? AssetImage(
-                                            "${WeatherIcons[data?.condition]}")
+                                        "${WeatherIcons[data?.condition]}")
                                         : const AssetImage(
-                                            'Assets/Icons/cloudy.png'),
+                                        'Assets/Icons/cloudy.png'),
                                     width: 200.0,
                                     height: 200.0,
                                   ),
@@ -198,18 +198,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         height: 100.0,
                                         decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(30)),
+                                            BorderRadius.circular(30)),
                                         child: Row(
                                           children: [
                                             Expanded(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                                 children: [
                                                   Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                    MainAxisAlignment
+                                                        .center,
                                                     children: [
                                                       const Image(
                                                         image: AssetImage(
@@ -254,12 +254,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             Expanded(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                                 children: [
                                                   Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                    MainAxisAlignment
+                                                        .center,
                                                     children: [
                                                       const Image(
                                                         image: AssetImage(
@@ -302,12 +302,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             Expanded(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                                 children: [
                                                   Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                    MainAxisAlignment
+                                                        .center,
                                                     children: [
                                                       const Image(
                                                         image: AssetImage(
@@ -418,19 +418,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
             }
             return Container();
           }),
+
     );
   }
 
   List<Color> backgroundColor() {
-    if (data!.condition.toLowerCase().contains('sunny')) {
-      return [Color(0xfff1c226), Color(0xfffd7502)];
-    } else if (data!.condition.toLowerCase().contains('cloud')) {
-      return [Color(0xff354f60), Color(0xff506e81)];
-    } else if (data!.condition.toLowerCase().contains('rain')) {
-      return [
-        Color(0xff3878ee),
-        Color(0xff218bfd),
-      ];
+    try{
+      if (data!.condition.toLowerCase().contains('sunny') ) {
+        return [Color(0xfff1c226), Color(0xfffd7502)];
+      } else if (data!.condition.toLowerCase().contains('cloud')) {
+        return [Color(0xff354f60), Color(0xff506e81)];
+      }
+      else if (data!.condition.toLowerCase().contains('rain')) {
+        return [Color(0xff3878ee), Color(0xff218bfd),];}
+    }
+    catch(e)
+    {
+      print("BackColor Problem: $e");
     }
     return [
       Color(0XFF21D4FD),

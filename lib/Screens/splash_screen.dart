@@ -40,7 +40,17 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     onBoardRun();
     return Container(
-      color: Colors.deepPurpleAccent,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors:
+          [
+            Color(0XFF21D4FD),
+            Color(0XFFB721FF),
+          ],
+          begin: Alignment.bottomRight,
+          end: Alignment.topLeft,
+        ),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

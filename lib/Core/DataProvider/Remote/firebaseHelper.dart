@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../../shared/constants/Variables/Constants.dart';
 
 class FireBaseHelper{

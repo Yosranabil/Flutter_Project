@@ -5,7 +5,6 @@ import 'package:practice/Core/Services/sharedPreferences.dart';
 import 'package:practice/Screens/authentication/signUp_screen.dart';
 import 'package:practice/Screens/location_screen.dart';
 import '../../Core/DataProvider/Remote/firebaseHelper.dart';
-import '../../Shared/Components/BottomNavBar.dart';
 import '../../shared/Components/buttonWidget.dart';
 import '../../shared/Components/passtextformfeildWidget.dart';
 import '../../shared/Components/textformfieldWidget.dart';

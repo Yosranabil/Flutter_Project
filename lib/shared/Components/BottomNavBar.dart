@@ -22,7 +22,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
   var client = WeatherData();
   var data;
   void fetchData() async {
-    data = await client.getData(widget.location);
+    try
+    {
+      data = await client.getData(widget.location);
+    }
+    catch(e)
+    {
+      print(e);
+    }
+
     setState(() {});
   }
   @override
@@ -38,13 +46,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   Color backgroundColor(){
     if(data!=null) {
-      if (data!.condition.toLowerCase().contains('sunny')) {
-        return const Color(0xfff1c226);
-      } else if (data!.condition.toLowerCase().contains('cloud')) {
-        return const Color(0xff354f60);
-      } else if (data!.condition.toLowerCase().contains('rain')) {
-        return const Color(0xff3878ee);
+      try{
+        if (data!.condition.toLowerCase().contains('sunny')) {
+          return const Color(0xfff1c226);
+        } else if (data!.condition.toLowerCase().contains('cloud')) {
+          return const Color(0xff354f60);
+        } else if (data!.condition.toLowerCase().contains('rain')) {
+          return const Color(0xff3878ee);
+        }
       }
+      catch(e)
+    {
+      print("Background Problem: $e");
+    }
+
     }
     return const Color(0xff3878ee);
   }

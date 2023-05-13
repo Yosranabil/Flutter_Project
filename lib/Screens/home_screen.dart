@@ -3,9 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:practice/Core/DataProvider/weatherData.dart';
 import 'package:practice/Screens/location_screen.dart';
-import 'package:practice/Screens/warning_screen.dart';
 import 'package:practice/shared/Constants/Variables/Constants.dart';
-import '../shared/Components/buttonWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   String? locationController;
@@ -395,21 +393,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CircularProgressIndicator(),
               );
             }
-            return Container();
+            else if (snapshot.hasError)
+            {
+              return Center(child: Text('Error!'),);
+            }
+            return const Text('error happened');
           });
   }
 
   List<Color> backgroundColor() {
-    if (data!.condition.toLowerCase().contains('sunny')) {
-      return [Color(0xfff1c226), Color(0xfffd7502)];
-    } else if (data!.condition.toLowerCase().contains('cloud')) {
-      return [Color(0xff354f60), Color(0xff506e81)];
-    } else if (data!.condition.toLowerCase().contains('rain')) {
-      return [
+    try{
+      if (data!.condition.toLowerCase().contains('sunny')) {
+        return [Color(0xfff1c226), Color(0xfffd7502)];
+      }
+      else if (data!.condition.toLowerCase().contains('cloud')) {
+        return [Color(0xff354f60), Color(0xff506e81)];
+      }
+      else if (data!.condition.toLowerCase().contains('rain')) {return [
         Color(0xff3878ee),
         Color(0xff218bfd),
-      ];
+      ];}
     }
+    catch(e)
+    {
+      print("BackColor Problem: $e");
+    }
+
     return [
       Color(0XFF21D4FD),
       Color(0XFFB721FF),
@@ -417,7 +426,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Color iconColor(){
-    if(data!=null) {
+    try{
+      if(data!=null) {
       if (data!.condition.toLowerCase().contains('sunny')) {
         return const Color(0xfff1c226);
       } else if (data!.condition.toLowerCase().contains('cloud')) {
@@ -425,6 +435,11 @@ class _HomeScreenState extends State<HomeScreen> {
       } else if (data!.condition.toLowerCase().contains('rain')) {
         return const Color(0xff3878ee);
       }
+    }
+    }
+    catch(e)
+    {
+      print("IconColor Problem: $e");
     }
     return Colors.deepPurple;
   }
@@ -517,36 +532,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-
-  void WrongData(){
-     Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Warning: Please check the spelling of the previous location\nor check your internet connection and\ntry again'
-          ),
-          ButtonWidget(
-            height: 50,
-            width: 70,
-            radius: 20,
-            child: const Text(
-              'OK',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            onClick: () async
-            {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyLocation(),));
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
 }
