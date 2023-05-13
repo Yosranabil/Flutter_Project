@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:practice/Shared/Components/BottomNavBar.dart';
 import 'package:practice/shared/Components/buttonWidget.dart';
+import '../Core/Services/sharedPreferences.dart';
+import '../shared/Constants/Variables/Constants.dart';
 
 class MyLocation extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
-    RegExp locExp = RegExp(r'^[A-Za-z]{3,26}$');
-    var locController = TextEditingController();
+    RegExp locExp = RegExp(r'^[A-Za-z]{4,26}$');
     final k = GlobalKey<FormState>();
+    final PrefService _prefService = PrefService();
 
     return Container(
       constraints: const BoxConstraints.expand(),
@@ -83,11 +87,11 @@ class MyLocation extends StatelessWidget {
                               } else {
                                 return null;
                               }
+
                             },
                             controller: locController,
                             decoration: InputDecoration(
                               labelText: 'Location',
-                              border: InputBorder.none,
                               prefixIcon: const Icon(
                                 Icons.location_on_rounded,
                                 color: Colors.deepPurple,
@@ -96,19 +100,19 @@ class MyLocation extends StatelessWidget {
                                 fontSize: 22,
                                 color: Colors.deepPurple,
                               ),
-                              focusedBorder: OutlineInputBorder(
+                              border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2,
                                     color: Colors.deepPurple.withOpacity(0.5)
                                 ),
                                 borderRadius: BorderRadius.circular(40.0),
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colors.deepPurple.withOpacity(0.5)
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 2,
+                                    color: Colors.deepPurple,
                                 ),
-                                  borderRadius: BorderRadius.circular(40.0),
+                                borderRadius: BorderRadius.circular(40.0),
                               ),
                             ),
                           ),
@@ -126,12 +130,16 @@ class MyLocation extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        onClick: ()
+                        onClick: () async
                         {
-                          if(k.currentState!.validate())
+                          _prefService.createCache(locController.text.toString()).whenComplete(() async {
+                            if (k.currentState!.validate())
                             {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar(location: locController.text.toString()),));
+                              var result = await _prefService.readCache("location");
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => BottomNavBar(location: result),));
                             }
+                          });
                         },
                       ),
                     ],

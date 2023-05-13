@@ -8,7 +8,7 @@ import 'package:practice/Screens/profile_screen.dart';
 class BottomNavBar extends StatefulWidget {
 
   BottomNavBar({super.key, required this.location});
-  String location;
+  String? location;
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState(myloc: location);
@@ -17,7 +17,7 @@ class BottomNavBar extends StatefulWidget {
 }
 class _BottomNavBarState extends State<BottomNavBar> {
   _BottomNavBarState({required this.myloc});
-  String myloc;
+  String? myloc;
   List<Widget> screens = [];
   var client = WeatherData();
   var data;

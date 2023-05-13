@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-
 var usernameController = TextEditingController();
 var passwordController = TextEditingController();
 var emailController = TextEditingController();
+var locController = TextEditingController();
 
 RegExp nameExp = RegExp(r'^[A-Za-z][A-Za-z0-9_]{7,29}$');
 RegExp passExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$');

@@ -1,14 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:practice/Core/Services/sharedPreferences.dart';
 import 'package:practice/Screens/authentication/signUp_screen.dart';
 import 'package:practice/Screens/location_screen.dart';
 import '../../Core/DataProvider/Remote/firebaseHelper.dart';
+import '../../Shared/Components/BottomNavBar.dart';
 import '../../shared/Components/buttonWidget.dart';
 import '../../shared/Components/passtextformfeildWidget.dart';
 import '../../shared/Components/textformfieldWidget.dart';
 import '../../shared/constants/Variables/Constants.dart';
-import '../onboarding/onboarding_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _key = GlobalKey<FormState>();
   bool visible = true;
+  final PrefService _prefService = PrefService();
 
   @override
   Widget build(BuildContext context) {
@@ -291,11 +293,19 @@ class _SignInScreenState extends State<SignInScreen> {
       );
 
       UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      print(userCredential.user?.displayName);
+      print("in the signin page: ${userCredential.user?.displayName}");
 
-      if (googleUser != null) {
-        // Navigate to the home page with the signed-in user
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => onboardingScreen()));
+      if (googleUser != null)
+      {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => MyLocation(),));
+      }
+      else
+      {
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => SignUpScreen()),
+        );
       }
     }
     catch(e){

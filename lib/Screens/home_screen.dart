@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:practice/Core/DataProvider/weatherData.dart';
+import 'package:practice/Screens/location_screen.dart';
+import 'package:practice/Screens/warning_screen.dart';
 import 'package:practice/shared/Constants/Variables/Constants.dart';
+import '../shared/Components/buttonWidget.dart';
 
 class HomeScreen extends StatefulWidget {
-  String locationController;
+  String? locationController;
   HomeScreen({required this.locationController});
 
   @override
@@ -14,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   _HomeScreenState({required this.loc});
-  String loc;
+  String? loc;
   var client = WeatherData();
   var data;
   String formattedDate = DateFormat('EEEE, MMMM d').format(DateTime.now());
@@ -25,300 +28,167 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: info(),
-        builder: (context, snapshot) {
-          int temp = data?.temp.toInt() ?? 0;
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                leading: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_rounded,
-                    ),
-                    color: Colors.black,
-                    iconSize: 30,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                toolbarHeight: 65,
-                leadingWidth: 65,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                     Icon(
-                      Icons.location_on_rounded,
-                      color: iconColor(),
-                      size: 27,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "${data?.cityName}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 25,
+      return FutureBuilder(
+          future: info(),
+          builder: (context, snapshot) {
+            int temp = data?.temp.toInt() ?? 0;
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  leading: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.location_city_rounded,
                       ),
+                      color: iconColor(),
+                      iconSize: 30,
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyLocation(),));
+                      },
                     ),
+                  ),
+                  toolbarHeight: 65,
+                  leadingWidth: 65,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.location_on_rounded,
+                        color: iconColor(),
+                        size: 27,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "${data?.cityName}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ],
+                  ),
+                  centerTitle: true,
+                  actions: const [
+                    Padding(
+                      padding: EdgeInsets.all(
+                        10,
+                      ),
+                      child: InkWell(
+                        child: Material(
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                          elevation: 2,
+                          child: CircleAvatar(
+                            radius: 23,
+                            backgroundColor: Color.fromRGBO(220, 220, 220, 1),
+                            child: CircleAvatar(
+                              radius: 20,
+                              child: Image(
+                                image: AssetImage("Assets/Icons/boy.png"),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ), //person icon
                   ],
                 ),
-                centerTitle: true,
-                actions: const [
-                  Padding(
-                    padding: EdgeInsets.all(
-                      10,
-                    ),
-                    child: InkWell(
-                      child: Material(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
-                        elevation: 2,
-                        child: CircleAvatar(
-                          radius: 23,
-                          backgroundColor: Color.fromRGBO(220, 220, 220, 1),
-                          child: CircleAvatar(
-                            radius: 20,
-                            child: Image(
-                              image: AssetImage("Assets/Icons/boy.png"),
-                            ),
-                          ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 40,
+                          horizontal: 10,
                         ),
-                      ),
-                    ),
-                  ), //person icon
-                ],
-              ),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 40,
-                        horizontal: 10,
-                      ),
-                      child: Material(
-                        elevation: 5,
-                        borderRadius: BorderRadiusDirectional.circular(30),
-                        child: Container(
-                          width: double.infinity,
-                          height: 250,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(Radius.circular(30)),
-                            gradient: LinearGradient(
-                              colors: backgroundColor(),
-                              begin: Alignment.bottomRight,
-                              end: Alignment.topLeft,
-                            ),
-                          ),
-                          child: Stack(
-                            clipBehavior: Clip.none,
-                            children: [
-                              Positioned(
-                                bottom: 95,
-                                child: Column(
-                                  children: [
-                                    Image(
-                                      image: (WeatherIcons[data?.condition] !=
-                                              null)
-                                          ? AssetImage(
-                                              "${WeatherIcons[data?.condition]}")
-                                          : const AssetImage(
-                                              'Assets/Icons/cloudy.png'),
-                                      height: 210,
-                                      width: 210,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                left: 210,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "$temp\u00b0",
-                                      style: const TextStyle(
-                                        fontSize: 98,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white54,
-                                      ),
-                                    ),
-                                    Text(
-                                      "Feels Like ${data?.feels_like}\u00b0",
-                                      style: const TextStyle(
-                                        fontSize: 21,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xFFEEEEEE),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                top: 120,
-                                left: 20,
-                                child: Row(
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          "${data?.condition}",
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            fontSize: 26,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          formattedDate,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      width: 30,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 15,
-                                      ),
-                                      child: Image(
-                                        image: const AssetImage(
-                                          "Assets/Icons/wind.png",
-                                        ),
-                                        height: 110,
-                                        width: 110,
-                                        color: Colors.white.withOpacity(0.2),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Today's forecast",
-                            style: TextStyle(
-                              fontSize: 23,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          SizedBox(
+                        child: Material(
+                          elevation: 5,
+                          borderRadius: BorderRadiusDirectional.circular(30),
+                          child: Container(
                             width: double.infinity,
-                            height: 200,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) =>
-                                  buildHourlyForecast(index),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                width: 5,
+                            height: 250,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(30)),
+                              gradient: LinearGradient(
+                                colors: backgroundColor(),
+                                begin: Alignment.bottomRight,
+                                end: Alignment.topLeft,
                               ),
-                              itemCount: data.hours.length,
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsetsDirectional.symmetric(
-                        vertical: 20,
-                      ),
-                      child: Divider(
-                        thickness: 1,
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        indent: 20,
-                        endIndent: 20,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                        start: 10,
-                        end: 10,
-                        bottom: 20,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Wind",
-                            style: TextStyle(
-                              fontSize: 23,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 45,
-                          ),
-                          Material(
-                            elevation: 5,
-                            borderRadius: BorderRadiusDirectional.circular(30),
                             child: Stack(
                               clipBehavior: Clip.none,
                               children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 220,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: backgroundColor(),
-                                      begin: Alignment.bottomRight,
-                                      end: Alignment.topLeft,
-                                    ),
-                                    borderRadius: const BorderRadiusDirectional.all(
-                                        Radius.circular(30)),
+                                Positioned(
+                                  bottom: 95,
+                                  child: Column(
+                                    children: [
+                                      Image(
+                                        image: (WeatherIcons[data?.condition] !=
+                                            null)
+                                            ? AssetImage(
+                                            "${WeatherIcons[data?.condition]}")
+                                            : const AssetImage(
+                                            'Assets/Icons/cloudy.png'),
+                                        height: 210,
+                                        width: 210,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Positioned(
-                                  bottom: 5,
-                                  right: 40,
+                                  left: 210,
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
                                     children: [
-                                      Row(
+                                      Text(
+                                        "$temp\u00b0",
+                                        style: const TextStyle(
+                                          fontSize: 98,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white54,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Feels Like ${data?.feels_like}\u00b0",
+                                        style: const TextStyle(
+                                          fontSize: 21,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xFFEEEEEE),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 120,
+                                  left: 20,
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
-                                            'Direction:   ',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                            ),
+                                          const SizedBox(
+                                            height: 10,
                                           ),
                                           Text(
-                                            '${data?.wind_dir}',
+                                            "${data?.condition}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              fontSize: 26,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            formattedDate,
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 20,
@@ -327,72 +197,206 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       ),
                                       const SizedBox(
-                                        height: 25,
+                                        width: 30,
                                       ),
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Speed:   ',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                            ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 15,
+                                        ),
+                                        child: Image(
+                                          image: const AssetImage(
+                                            "Assets/Icons/wind.png",
                                           ),
-                                          Text(
-                                            '${data?.wind} k/h',
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 35,
-                                          ),
-                                          Image(
-                                            image: const AssetImage(
-                                              "Assets/Icons/wind.png",
-                                            ),
-                                            height: 110,
-                                            width: 110,
-                                            color:
-                                                Colors.white.withOpacity(0.2),
-                                          ),
-                                        ],
+                                          height: 110,
+                                          width: 110,
+                                          color: Colors.white.withOpacity(0.2),
+                                        ),
                                       ),
                                     ],
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 10,
-                                  left: -60,
-                                  child: Lottie.asset(
-                                    'Assets/lotties/15422-wind-mill-animation.json',
-                                    width: 300,
-                                    height: 300,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Today's forecast",
+                              style: TextStyle(
+                                fontSize: 23,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 200,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) =>
+                                    buildHourlyForecast(index),
+                                separatorBuilder: (context, index) =>
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                itemCount: data.hours.length,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsetsDirectional.symmetric(
+                          vertical: 20,
+                        ),
+                        child: Divider(
+                          thickness: 1,
+                          color: Color.fromRGBO(220, 220, 220, 1),
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(
+                          start: 10,
+                          end: 10,
+                          bottom: 20,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Wind",
+                              style: TextStyle(
+                                fontSize: 23,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 45,
+                            ),
+                            Material(
+                              elevation: 5,
+                              borderRadius: BorderRadiusDirectional.circular(30),
+                              child: Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    height: 220,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: backgroundColor(),
+                                        begin: Alignment.bottomRight,
+                                        end: Alignment.topLeft,
+                                      ),
+                                      borderRadius: const BorderRadiusDirectional.all(
+                                          Radius.circular(30)),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 5,
+                                    right: 40,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Direction:   ',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${data?.wind_dir}',
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 25,
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Speed:   ',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${data?.wind} k/h',
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 35,
+                                            ),
+                                            Image(
+                                              image: const AssetImage(
+                                                "Assets/Icons/wind.png",
+                                              ),
+                                              height: 110,
+                                              width: 110,
+                                              color:
+                                              Colors.white.withOpacity(0.2),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 10,
+                                    left: -60,
+                                    child: Lottie.asset(
+                                      'Assets/lotties/15422-wind-mill-animation.json',
+                                      width: 300,
+                                      height: 300,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Container();
-        });
+              );
+            }
+            else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Container();
+          });
   }
 
   List<Color> backgroundColor() {
@@ -513,4 +517,36 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+
+  void WrongData(){
+     Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Warning: Please check the spelling of the previous location\nor check your internet connection and\ntry again'
+          ),
+          ButtonWidget(
+            height: 50,
+            width: 70,
+            radius: 20,
+            child: const Text(
+              'OK',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            onClick: () async
+            {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyLocation(),));
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
 }

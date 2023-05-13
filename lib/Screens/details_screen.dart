@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:practice/Model/dailyForecast.dart';
 import 'package:practice/Screens/search_screen.dart';
-import 'package:sticky_headers/sticky_headers.dart';
-
 import '../Core/DataProvider/weatherData.dart';
 import '../Model/details_model.dart';
 import '../shared/Constants/Variables/Constants.dart';
 
 class DetailsScreen extends StatefulWidget {
-  String locationController;
+  String? locationController;
   DetailsScreen({required this.locationController});
   @override
   State<DetailsScreen> createState() =>
@@ -18,7 +15,7 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
   _DetailsScreenState({required this.loc});
-  String loc;
+  String? loc;
   var client = WeatherData();
   var data;
   var dataDaily;
