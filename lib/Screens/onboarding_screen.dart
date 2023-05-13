@@ -1,20 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:practice/Screens/home_screen.dart';
 import 'package:practice/Screens/location_screen.dart';
-import 'package:practice/Shared/Components/BottomNavBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Core/Services/sharedPreferences.dart';
-import '../../shared/Components/buttonWidget.dart';
+import '../Core/Services/sharedPreferences.dart';
+import '../Shared/Components/BottomNavBar.dart';
+import '../shared/Components/buttonWidget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../authentication/signUp_screen.dart';
+import '../shared/Constants/Variables/Constants.dart';
+import 'authentication/signUp_screen.dart';
 
 class onboardingScreen extends StatefulWidget {
+  const onboardingScreen({super.key});
 
   @override
   State<onboardingScreen> createState() => _onboardingScreenState();
 }
-
 class _onboardingScreenState extends State<onboardingScreen> {
   late PageController _pageController;
   final PrefService _prefService = PrefService();
@@ -36,14 +38,13 @@ class _onboardingScreenState extends State<onboardingScreen> {
     await prefs.setInt('onBoard',isViewed);
   }
   List<Color> color = [
-    const Color(0XFF0093E9),
-    const Color(0xffFFCC70),
-    const Color(0xffFC00FF),
+    Color(0XFF0093E9),
+    Color(0xffFFCC70),
+    Color(0xffFC00FF),
   ];
   int currentContIndex = 0;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -92,7 +93,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       'Check real-time weather!',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        fontSize: 35.0,
+                                        fontSize:40,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                         height: 1.2,
@@ -104,6 +105,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.grey,
+                                        fontSize: 15,
                                         height: 1.5,
                                       ),
                                     ),
@@ -174,7 +176,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       'Get potential weather!',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        fontSize: 35.0,
+                                        fontSize: 40.0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                         height: 1.2,
@@ -186,6 +188,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.grey,
+                                        fontSize: 15,
                                         height: 1.5,
                                       ),
                                     ),
@@ -255,7 +258,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       'Get the weather and stay safe!',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        fontSize: 35.0,
+                                        fontSize: 40.0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                         height: 1.2,
@@ -267,6 +270,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.grey,
+                                        fontSize: 15,
                                         height: 1.5,
                                       ),
                                     ),
@@ -277,25 +281,25 @@ class _onboardingScreenState extends State<onboardingScreen> {
                                       onClick:() async {
                                         await _storeOnBoardInfo();
                                         if (FirebaseAuth.instance.currentUser != null)
-                                          {
-                                            _prefService.readCache("location").then((value) {
-                                              if (value != null) {
-                                                Navigator.push(context, MaterialPageRoute(
-                                                  builder: (context) => BottomNavBar(location: value),));
-                                              }
-                                              else {
-                                                Navigator.push(context,
-                                                    MaterialPageRoute(builder: (context) => MyLocation(),));
-                                              }
-                                            });
-                                          }
+                                        {
+                                          _prefService.readCache("location").then((value) {
+                                            if (value != null) {
+                                              Navigator.push(context, MaterialPageRoute(
+                                                builder: (context) => BottomNavBar(location: value),));
+                                            }
+                                            else {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute(builder: (context) => MyLocation(),));
+                                            }
+                                          });
+                                        }
                                         else
-                                          {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(builder: (context) => SignUpScreen()),
-                                            );
-                                          }
+                                        {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => SignUpScreen()),
+                                          );
+                                        }
                                       },
                                       radius: 30,
                                       child: const Text(
@@ -322,7 +326,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
               ]
             ),
             Container(
-              alignment:  const Alignment(0.9,-0.95),
+              alignment:  Alignment(0.9,-0.95),
               child: TextButton(
                   onPressed: () async {
                     await _storeOnBoardInfo();

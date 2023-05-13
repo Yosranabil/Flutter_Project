@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:practice/Shared/Components/BottomNavBar.dart';
 import 'package:practice/shared/Components/buttonWidget.dart';
+import '../Core/DataProvider/weatherData.dart';
 import '../Core/Services/sharedPreferences.dart';
 import '../shared/Constants/Variables/Constants.dart';
 
 class MyLocation extends StatelessWidget {
 
+  var client =WeatherData();
 
   @override
   Widget build(BuildContext context) {
     RegExp locExp = RegExp(r'^[A-Za-z]{4,26}$');
     final k = GlobalKey<FormState>();
     final PrefService _prefService = PrefService();
-
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -94,7 +95,6 @@ class MyLocation extends StatelessWidget {
                               } else {
                                 return null;
                               }
-
                             },
                             controller: locController,
                             decoration: InputDecoration(

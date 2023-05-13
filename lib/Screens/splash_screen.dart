@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:practice/Core/Services/sharedPreferences.dart';
-import 'package:practice/Screens/onboarding/onboarding_screen.dart';
 import 'package:practice/Shared/Components/BottomNavBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'authentication/signUp_screen.dart';
+import 'onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
 
@@ -63,6 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
             style: const TextStyle(
               fontSize: 40.0,
               fontWeight: FontWeight.bold,
+              fontFamily: "Acme",
               color: Colors.amber,
             ),
             child: AnimatedTextKit(
