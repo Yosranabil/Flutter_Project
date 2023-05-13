@@ -90,7 +90,7 @@ class MyLocation extends StatelessWidget {
                               color: Colors.deepPurple,
                             ),
                             validator: (value) {
-                              if (value!.isEmpty || !locExp.hasMatch(locController.text.toString())) {
+                              if (value!.isEmpty || !locExp.hasMatch(value.replaceAll(' ', ''))) {
                                 return 'A valid location should be at least three letters';
                               } else {
                                 return null;
@@ -142,9 +142,38 @@ class MyLocation extends StatelessWidget {
                           _prefService.createCache(locController.text.toString()).whenComplete(() async {
                             if (k.currentState!.validate())
                             {
-                              var result = await _prefService.readCache("location");
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => BottomNavBar(location: result),));
+                              var result = await client.location(locController.text.toString());
+                              if (result.isEmpty) {
+                                // Location not found, inform the user
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Location Not Found'),
+                                      content: Text('The entered location could not be found.'),
+                                      actions: [
+                                        TextButton(
+                                          child: Text('OK'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                // Valid location found, proceed with navigation
+                                _prefService.createCache(locController.text.toString()).whenComplete(() async {
+                                  var result = await _prefService.readCache("location");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BottomNavBar(location: result),
+                                    ),
+                                  );
+                                });
+                              }
                             }
                           });
                         },
