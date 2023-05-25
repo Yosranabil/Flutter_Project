@@ -1,16 +1,9 @@
-# practice
+#Weather Application
+This Flutter project is a weather application built using Dart programming language. It allows users to view the current weather conditions and forecast for different locations.
 
-A new Flutter project.
+##Features
+Current Weather: Users can see the current weather conditions including temperature, humidity, wind speed, and weather description for their current location or any other location they search for.
 
-## Getting Started
+Forecast: The application provides a 7-day weather forecast for the selected location. Users can view the predicted temperature and weather conditions for each day.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Location Search: Users can search for weather information of any location by entering the name of the country. The application fetches the latest weather data from a reliable weather API.
